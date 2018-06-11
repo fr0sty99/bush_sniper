@@ -59,7 +59,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Assets\CameraController.cs" />
+=======
+>>>>>>> tmp
     <Compile Include="Assets\PlayerObject.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/Joris/Data/DEVEL/github_unity_space_pace/Space Pace/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

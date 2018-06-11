@@ -2,8 +2,12 @@
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PlayerObject.cs">
     <Files>
+<<<<<<< HEAD
       <File FileName="Assets/PlayerObject.cs" Line="51" Column="1" />
       <File FileName="Assets/CameraController.cs" Line="27" Column="1" />
+=======
+      <File FileName="Assets/PlayerObject.cs" Line="20" Column="26" />
+>>>>>>> tmp
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
