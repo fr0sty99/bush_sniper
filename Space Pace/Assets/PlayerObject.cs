@@ -13,13 +13,9 @@ public class PlayerObject : NetworkBehaviour {
 	void Start () {
         player = GetComponent<Rigidbody>();
 
-<<<<<<< HEAD
-  ///////// below here is network stuff
-
-=======
         // network stuff
         ///////////////////////////////////
->>>>>>> tmp
+
         if(isLocalPlayer == false) {
             // this object belongs to another player.
             return;
@@ -35,10 +31,7 @@ public class PlayerObject : NetworkBehaviour {
    // public GameObject PlayerUnitPrefab,
 	
 	void Update () {
-<<<<<<< HEAD
-=======
 
->>>>>>> tmp
         if (Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
@@ -47,10 +40,7 @@ public class PlayerObject : NetworkBehaviour {
         if (Input.GetKey(KeyCode.S))
         {
             transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
-<<<<<<< HEAD
 
-=======
->>>>>>> tmp
         }
 
         if (Input.GetKey(KeyCode.W))

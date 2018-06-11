@@ -1,13 +1,9 @@
 ﻿<Properties StartupConfiguration="{BA26D645-62B0-C947-12D1-8A71E61DFB1E}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PlayerObject.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/CameraController.cs">
     <Files>
-<<<<<<< HEAD
-      <File FileName="Assets/PlayerObject.cs" Line="51" Column="1" />
-      <File FileName="Assets/CameraController.cs" Line="27" Column="1" />
-=======
-      <File FileName="Assets/PlayerObject.cs" Line="20" Column="26" />
->>>>>>> tmp
+      <File FileName="Assets/PlayerObject.cs" Line="46" Column="37" />
+      <File FileName="Assets/CameraController.cs" Line="25" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
