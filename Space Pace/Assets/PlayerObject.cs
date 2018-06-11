@@ -5,7 +5,16 @@ using UnityEngine.Networking;
 
 public class PlayerObject : NetworkBehaviour {
 
+    public float movementSpeed = 0.5f;
+    public Rigidbody player = null;
+
+    public float moveSpeed = 5f;
+
 	void Start () {
+        player = GetComponent<Rigidbody>();
+
+  ///////// below here is network stuff
+
         if(isLocalPlayer == false) {
             // this object belongs to another player.
             return;
@@ -21,6 +30,25 @@ public class PlayerObject : NetworkBehaviour {
    // public GameObject PlayerUnitPrefab,
 	
 	void Update () {
-		
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
+
+        }
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+        }
 	}
 }
