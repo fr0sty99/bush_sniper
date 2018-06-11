@@ -6,37 +6,38 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Movement : MonoBehaviour
 {
-    public float movementSpeed = 5.0f;
-    public float clockwise = 1000.0f;
-    public float counterClockwise = -5.0f;
+    public float movementSpeed = 0.5f;
+    public Rigidbody player = null;
+
+    public float moveSpeed = 5f;
 
     void Start()
     {
-
+        player = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.Translate(-Vector3.up * moveSpeed * Time.deltaTime);
+        }
+
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += transform.forward * Time.deltaTime * movementSpeed;        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            transform.position += transform.forward * Time.deltaTime * movementSpeed;        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            transform.position += transform.forward * Time.deltaTime * movementSpeed;        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            transform.position += transform.forward * Time.deltaTime * movementSpeed;        }
+            transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
+        }
 
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.D))
         {
-            transform.Rotate(0, Time.deltaTime * clockwise, 0);
+            transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
         }
-        else if (Input.GetKey(KeyCode.Q))
-        {
-            transform.Rotate(0, Time.deltaTime * counterClockwise, 0);
-        }
+
     }
 }
