@@ -31,6 +31,24 @@ public class PlayerObject : NetworkBehaviour {
    // public GameObject PlayerUnitPrefab,
 	
 	void Update () {
+        // hack
+        if(transform.position.z != 0) {
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0); // stay on playground
+        }
+
+        if(transform.rotation.x != 0 || transform.rotation.y != 0 || transform.rotation.z != 0) {
+            transform.rotation = Quaternion.identity;
+        }
+
+        if(player.velocity.x != 0 || player.velocity.y != 0 || player.velocity.z != 0) {
+            player.velocity = Vector3.zero;
+        }
+
+        // end of hack
+
+
+
+        // movement
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -39,13 +57,12 @@ public class PlayerObject : NetworkBehaviour {
 
         if (Input.GetKey(KeyCode.S))
         {
-            transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
-
+            transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.W))
         {
-            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+            transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.D))
