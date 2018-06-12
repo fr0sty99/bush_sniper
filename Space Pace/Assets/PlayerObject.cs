@@ -69,5 +69,21 @@ public class PlayerObject : NetworkBehaviour {
         {
             transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
         }
-	}
+
+        if(Input.GetKey(KeyCode.Space)) {
+            Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            Vector2 direction = (Vector2)((worldMousePos - transform.position));
+            direction.Normalize();
+
+            // Creates the bullet locally
+            GameObject bullet = (GameObject)Instantiate(
+                                    currentBulletPrefab,
+                                    transform.position + (Vector3)(direction * 0.5f),
+                                    Quaternion.identity);
+
+            // Adds velocity to the bullet
+            bullet.GetComponent<Rigidbody2D>().velocity = direction * moveSpeed;
+        }
+       }
 }
