@@ -7,6 +7,7 @@ public class PlayerObject : NetworkBehaviour {
 
     public float movementSpeed = 0.5f;
     public Rigidbody player = null;
+    public GameObject test;
 
     public float moveSpeed = 5f;
 
@@ -31,6 +32,8 @@ public class PlayerObject : NetworkBehaviour {
    // public GameObject PlayerUnitPrefab,
 	
 	void Update () {
+       
+
         // hack
         if(transform.position.z != 0) {
             transform.position = new Vector3(transform.position.x, transform.position.y, 0); // stay on playground
@@ -49,7 +52,6 @@ public class PlayerObject : NetworkBehaviour {
 
 
         // movement
-
         if (Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
@@ -70,6 +72,7 @@ public class PlayerObject : NetworkBehaviour {
             transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
         }
 
+        // bullet spawninig
         if(Input.GetKey(KeyCode.Space)) {
             Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -78,12 +81,12 @@ public class PlayerObject : NetworkBehaviour {
 
             // Creates the bullet locally
             GameObject bullet = (GameObject)Instantiate(
-                                    currentBulletPrefab,
+                                    test,
                                     transform.position + (Vector3)(direction * 0.5f),
                                     Quaternion.identity);
 
             // Adds velocity to the bullet
-            bullet.GetComponent<Rigidbody2D>().velocity = direction * moveSpeed;
+            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.up * direction * moveSpeed;
         }
        }
 }
