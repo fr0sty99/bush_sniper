@@ -74,19 +74,33 @@ public class PlayerObject : NetworkBehaviour {
 
         // bullet spawninig
         if(Input.GetKey(KeyCode.Space)) {
-            Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 shootDirection;
 
-            Vector2 direction = (Vector2)((worldMousePos - transform.position));
-            direction.Normalize();
+            /* // Gets a vector that points from the player's position to the target's.
+var heading = target.position - player.position;
+
+As well as pointing in the direction of the target object, this vector’s magnitude is equal to the distance between the two positions. It is common to need a normalized vector giving the direction to the target and also the distance to the target (say for directing a projectile). The distance between the objects is equal to the magnitude of the heading vector and this vector can be normalized by dividing it by its magnitude:-
+
+var distance = heading.magnitude;
+var direction = heading / distance; // This is now the normalized direction.
+
+            */
+
+            Vector3 playerPosNormalized = player.position.normalized;
+            Vector3 mousePosNormalized = Input.mousePosition.normalized;
+
+            Vector3 heading = playerPosNormalized - mousePosNormalized;
+            heading.Normalize();
+            float distance = heading.magnitude;
+            Vector3 direction = heading / distance;
 
             // Creates the bullet locally
             GameObject bullet = (GameObject)Instantiate(
                                     test,
-                                    transform.position + (Vector3)(direction * 0.5f),
-                                    Quaternion.identity);
+                player.position , Quaternion.Euler(direction));
 
             // Adds velocity to the bullet
-            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.up * direction * moveSpeed;
+            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.up * moveSpeed;
         }
        }
 }
