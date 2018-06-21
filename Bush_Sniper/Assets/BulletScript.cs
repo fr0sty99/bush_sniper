@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bullet : MonoBehaviour {
+public class BulletScript : MonoBehaviour {
     public Vector3 heading;
     public GameObject player;
     public Rigidbody rb;
@@ -11,11 +11,11 @@ public class bullet : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
 	}
 	
 	// Update is called once per frame
 	void Update () {
         transform.position += transform.forward * movementSpeed;
     }
+
 }

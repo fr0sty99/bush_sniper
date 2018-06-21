@@ -3,42 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class PlayerObject : NetworkBehaviour
+public class PlayerObject : MonoBehaviour
 {
 
     public float movementSpeed = 0.5f;
     public Rigidbody player = null;
     public GameObject bullet;
-    private bool allowfire;
-
+    public GameObject gun;
+    public float fireRate;
+    private float nextFire;
+    private LinkedList<GameObject> bulletList = new LinkedList<GameObject>();
+    Vector3 currentPlayerPos;
+    Vector3 currentMousePos;
     public float moveSpeed = 5f;
+    public int shootingDistance;
 
     void Start()
     {
         player = GetComponent<Rigidbody>();
 
-        // network stuff
-        ///////////////////////////////////
-
-        if (isLocalPlayer == false)
-        {
-            // this object belongs to another player.
-            return;
-        }
-
-        // since the PlayerObject is invisible and not part of the world
-        // give me something physical to move around
-
-        Debug.Log("PLayerObject::Start -- Spawning my own personal unit.");
-        //    Instantiate(PlayerUnitPrefab);
     }
-
-    // public GameObject PlayerUnitPrefab,
 
     void Update()
     {
-
-
         // hack
         if (transform.position.z != 0)
         {
@@ -81,32 +68,64 @@ public class PlayerObject : NetworkBehaviour
         }
 
 
-       
-            
 
-        
-        
+
+
+
+        // remove old bullets and look at aiming direction
+        currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        currentMousePos.z = 0; // flatten the vector into 2D
+
+        currentPlayerPos = new Vector3(player.position.x, player.position.y, 0);
+        Debug.Log("playerPos2D: " + currentPlayerPos);
+
         // bullet spawninig
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && Time.time > nextFire)
         {
+            nextFire = Time.time + fireRate;
+
             // mousePosition relative to scene NOT to camera (this would be Input.mousePosition ;) )
-            Vector3 mousePos2D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log("mousePos2D: " + mousePos2D);
 
-            // playerPosition relative to scene
-            Vector3 playerPos2D = new Vector3(player.position.x, player.position.y, 0);
-            Debug.Log("playerPos2D: " + playerPos2D);
+            Vector3 heading = currentMousePos - currentPlayerPos;
+            float dist = heading.magnitude;
+            Vector3 direction = heading / dist;
+            GameObject bulletClone = Instantiate(bullet, currentPlayerPos + direction * 0.8f, Quaternion.identity);
+            currentPlayerPos.z = 0.22f;
+            currentMousePos.z = 0.22f;
+            gun.transform.position = currentPlayerPos;
+            bulletClone.transform.LookAt(currentMousePos);
+            bulletList.AddFirst(bulletClone);
+        }
 
-            // Create a ray from the transform position along the transform's z-axis
-            Vector3 heading = mousePos2D - playerPos2D;
-            var distance = heading.magnitude;
-            var direction = heading / distance;
-            Ray ray = new Ray(playerPos2D, direction);
+        lookAtMouse();
+        removeDistantShots();
 
-            GameObject bulletClone = Instantiate(bullet, playerPos2D, Quaternion.identity);
-            bulletClone.transform.position = playerPos2D;
-            bulletClone.transform.LookAt(heading);
+    }
 
+
+    void lookAtMouse()
+    {
+        currentMousePos.z = 0.22f;
+        currentPlayerPos.z = 0.22f;
+        gun.transform.position = currentPlayerPos;
+        gun.transform.LookAt(currentMousePos);
+        gun.transform.position += gun.transform.forward * 0.2f;
+    }
+
+    void removeDistantShots()
+    {
+        // debug
+        foreach (GameObject bullet in bulletList)
+        {
+            BulletScript bulletScript = bullet.GetComponent<BulletScript>();
+            Vector3 distance = currentPlayerPos - bullet.transform.position;
+            Debug.Log("distance: " + distance.magnitude.ToString());
+            if (distance.magnitude > shootingDistance)
+            {
+                Destroy(bullet);
+                bulletList.Remove(bullet);
+            }
         }
     }
+
 }
