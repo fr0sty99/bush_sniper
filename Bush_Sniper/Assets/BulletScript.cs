@@ -15,7 +15,8 @@ public class BulletScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position += transform.forward * movementSpeed;
+       
+        transform.LookAt(Camera.main.transform.position, -Vector3.up);
     }
 
 }

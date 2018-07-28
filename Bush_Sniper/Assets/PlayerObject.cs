@@ -93,13 +93,15 @@ public class PlayerObject : MonoBehaviour
             currentPlayerPos.z = 0.22f;
             currentMousePos.z = 0.22f;
             gun.transform.position = currentPlayerPos;
-            bulletClone.transform.LookAt(currentMousePos);
+            //  bulletClone.transform.LookAt(currentMousePos);
+            Rigidbody rb = bulletClone.GetComponent<Rigidbody>();
+            float speed = 3f;
+            rb.velocity = new Vector2(direction.x * speed, direction.y * speed);
             bulletList.AddFirst(bulletClone);
         }
 
         lookAtMouse();
         removeDistantShots();
-
     }
 
 
@@ -117,7 +119,6 @@ public class PlayerObject : MonoBehaviour
         // debug
         foreach (GameObject bullet in bulletList)
         {
-            BulletScript bulletScript = bullet.GetComponent<BulletScript>();
             Vector3 distance = currentPlayerPos - bullet.transform.position;
             Debug.Log("distance: " + distance.magnitude.ToString());
             if (distance.magnitude > shootingDistance)
