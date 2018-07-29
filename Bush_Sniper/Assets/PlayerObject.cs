@@ -6,7 +6,6 @@ using UnityEngine.Networking;
 public class PlayerObject : MonoBehaviour
 {
 
-    public float movementSpeed = 0.5f;
     public Rigidbody player = null;
     public GameObject bullet;
     public GameObject gun;
@@ -17,6 +16,8 @@ public class PlayerObject : MonoBehaviour
     Vector3 currentMousePos;
     public float moveSpeed = 5f;
     public int shootingDistance;
+    public float bulletSpeed = 3f;
+
 
     void Start()
     {
@@ -89,23 +90,24 @@ public class PlayerObject : MonoBehaviour
             Vector3 heading = currentMousePos - currentPlayerPos;
             float dist = heading.magnitude;
             Vector3 direction = heading / dist;
-            GameObject bulletClone = Instantiate(bullet, currentPlayerPos + direction * 0.8f, Quaternion.identity);
+            GameObject bulletClone = Instantiate(bullet, currentPlayerPos /* + direction * 0.8f barrel length */, Quaternion.identity);
             currentPlayerPos.z = 0.22f;
             currentMousePos.z = 0.22f;
             gun.transform.position = currentPlayerPos;
             //  bulletClone.transform.LookAt(currentMousePos);
             Rigidbody rb = bulletClone.GetComponent<Rigidbody>();
-            float speed = 3f;
-            rb.velocity = new Vector2(direction.x * speed, direction.y * speed);
+            rb.velocity = new Vector2(direction.x * bulletSpeed, direction.y * bulletSpeed);
             bulletList.AddFirst(bulletClone);
         }
 
-        lookAtMouse();
+        aimAtMouse();
+        // sprite direction
+        transform.LookAt(Camera.main.transform.position, -Vector3.up);
         removeDistantShots();
     }
 
 
-    void lookAtMouse()
+    void aimAtMouse()
     {
         currentMousePos.z = 0.22f;
         currentPlayerPos.z = 0.22f;

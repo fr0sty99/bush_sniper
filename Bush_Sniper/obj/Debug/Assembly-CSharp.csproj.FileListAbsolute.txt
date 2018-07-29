@@ -240,3 +240,7 @@
 /Users/Joris/Data/DEVEL/github_unity_space_pace/Space Pace/obj/Debug/Assembly-CSharp.csproj.CoreCompileInputs.cache
 /Users/Joris/Data/DEVEL/github_unity_space_pace/Space Pace/obj/Debug/Assembly-CSharp.dll
 /Users/Joris/Data/DEVEL/github_unity_space_pace/Space Pace/obj/Debug/Assembly-CSharp.pdb
+/Users/Joris/Data/DEVEL/github_unity_space_pace/Bush_Sniper/obj/Debug/Assembly-CSharp.csprojResolveAssemblyReference.cache
+/Users/Joris/Data/DEVEL/github_unity_space_pace/Bush_Sniper/obj/Debug/Assembly-CSharp.csproj.CoreCompileInputs.cache
+/Users/Joris/Data/DEVEL/github_unity_space_pace/Bush_Sniper/obj/Debug/Assembly-CSharp.dll
+/Users/Joris/Data/DEVEL/github_unity_space_pace/Bush_Sniper/obj/Debug/Assembly-CSharp.pdb
