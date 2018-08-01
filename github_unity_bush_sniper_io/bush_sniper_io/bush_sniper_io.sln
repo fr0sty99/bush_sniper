@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio for Mac
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bush_sniper_io", "Assembly-CSharp.csproj", "{7378E9ED-1337-15AB-EC93-39545029B099}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bush_sniper_io", "Assembly-CSharp-Editor.csproj", "{6A49DE05-A01F-7792-6D77-BDF94129174E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7378E9ED-1337-15AB-EC93-39545029B099}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7378E9ED-1337-15AB-EC93-39545029B099}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7378E9ED-1337-15AB-EC93-39545029B099}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7378E9ED-1337-15AB-EC93-39545029B099}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A49DE05-A01F-7792-6D77-BDF94129174E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A49DE05-A01F-7792-6D77-BDF94129174E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A49DE05-A01F-7792-6D77-BDF94129174E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A49DE05-A01F-7792-6D77-BDF94129174E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

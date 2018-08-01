@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class PlayerObject : MonoBehaviour
 {
 
-    public Rigidbody player = null;
+    public Rigidbody2D player = null;
     public GameObject bullet;
     public GameObject gun;
     public float fireRate;
@@ -21,7 +21,7 @@ public class PlayerObject : MonoBehaviour
 
     void Start()
     {
-        player = GetComponent<Rigidbody>();
+        player = GetComponent<Rigidbody2D>();
 
     }
 
@@ -38,7 +38,7 @@ public class PlayerObject : MonoBehaviour
             transform.rotation = Quaternion.identity;
         }
 
-        if (player.velocity.x != 0 || player.velocity.y != 0 || player.velocity.z != 0)
+        if (player.velocity.x != 0 || player.velocity.y != 0)
         {
             player.velocity = Vector3.zero;
         }

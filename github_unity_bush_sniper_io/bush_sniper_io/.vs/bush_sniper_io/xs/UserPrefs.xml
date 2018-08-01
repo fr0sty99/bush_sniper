@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{7378E9ED-1337-15AB-EC93-39545029B099}|">
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PlayerConnectionObject.cs">
+    <Files>
+      <File FileName="Assets/PlayerConnectionObject.cs" Line="56" Column="14" />
+      <File FileName="Assets/PlayerUnit.cs" Line="29" Column="9" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
