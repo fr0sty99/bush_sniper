@@ -18,7 +18,6 @@ public class PlayerObject : MonoBehaviour
     public int shootingDistance;
     public float bulletSpeed = 3f;
 
-
     void Start()
     {
         player = GetComponent<Rigidbody2D>();
