@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class PlayerObject : MonoBehaviour
 {
-
+    public bool moving = false;
     public Rigidbody2D player = null;
     public GameObject bullet;
     public GameObject gun;
@@ -49,24 +49,36 @@ public class PlayerObject : MonoBehaviour
         // movement
         if (Input.GetKey(KeyCode.A))
         {
+            moving = true;
             transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.S))
         {
+            moving = true;
             transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.W))
         {
+            moving = true;
             transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
+            moving = true;
             transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
         }
 
+
+        if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) &&  !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        {
+            moving = false;
+        }
+
+        // cloak if standing still
+        cloakIfWalking();
 
 
 
@@ -81,7 +93,7 @@ public class PlayerObject : MonoBehaviour
         Debug.Log("mousePos2D: " + currentMousePos);
 
         // bullet spawninig
-        if (Input.GetKey(KeyCode.Space) && Time.time > nextFire)
+        if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire && moving)
         {
             nextFire = Time.time + fireRate;
 
@@ -90,9 +102,9 @@ public class PlayerObject : MonoBehaviour
             Vector3 heading = currentMousePos - currentPlayerPos;
             float dist = heading.magnitude;
             Vector3 direction = heading / dist;
-            GameObject bulletClone = Instantiate(bullet, currentPlayerPos /* + direction * 0.8f barrel length */, Quaternion.identity);
+            GameObject bulletClone = Instantiate(bullet, currentPlayerPos + direction * 0.4f, Quaternion.identity);
             currentPlayerPos.z = 0.22f;
-            currentMousePos.z = 0.22f;
+            currentMousePos.z = 0.22f;  
             gun.transform.position = currentPlayerPos;
             //  bulletClone.transform.LookAt(currentMousePos);
             Rigidbody rb = bulletClone.GetComponent<Rigidbody>();
@@ -101,11 +113,24 @@ public class PlayerObject : MonoBehaviour
         }
 
         aimAtMouse();
+
         // sprite direction
         transform.LookAt(Camera.main.transform.position, -Vector3.up);
         removeDistantShots();
     }
 
+    void cloakIfWalking () {
+        // if player is moving
+        if(moving) {
+            // show gunBarrel
+            gun.GetComponent<SpriteRenderer>().enabled = true;
+            Debug.Log("activated gunBarrel!");
+        } else {
+            // if he is standing still, hide gunBarrel
+            gun.GetComponent<SpriteRenderer>().enabled = false;
+            Debug.Log("deactivated gunBarrel!");
+        }
+    }
 
     void aimAtMouse()
     {
