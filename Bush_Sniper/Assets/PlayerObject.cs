@@ -144,4 +144,37 @@ public class PlayerObject : MonoBehaviour
         }
     }
 
+    void generateIslands() {
+        GameObject bridge;
+        List<GameObject> islandList = new List<GameObject>();
+        for (int i = 0; i < 10; i ++) {
+            int random = Random.Range(0, 4);
+            List<GameObject> bridgeList = new List<GameObject>();
+            for (int j = 0; j < random; j++) {
+                int random2 = Random.Range(0, 4);
+                switch(random2) {
+                    case 0:
+                        // top 
+                        //GameObject topBridgeVertical = Instantiate(bridge, )
+                        break;
+
+                    case 1:
+                        
+                        break;
+
+                    case 2:
+
+                        break;
+
+                    case 3:
+
+                        break;
+                }
+
+
+
+            }
+        }
+    }
+
 }

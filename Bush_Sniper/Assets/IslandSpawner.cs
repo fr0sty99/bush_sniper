@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class IslandSpawner : MonoBehaviour {
+    List<GameObject> islandList = new List<GameObject>();
 
-	// Use this for initialization
-	void Start () {
-        var numIslands = Random.Range(0, 10);
-        var numBridges = numIslands + (numIslands / 4);
-		
-	}
+    // Use this for initialization
+    void Start () {
+       
+    }
 	
 	// Update is called once per frame
 	void Update () {
