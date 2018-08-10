@@ -63,6 +63,7 @@
     <Compile Include="Assets\BushScript.cs" />
     <Compile Include="Assets\BushSpawner.cs" />
     <Compile Include="Assets\CameraController.cs" />
+    <Compile Include="Assets\IslandSpawner.cs" />
     <Compile Include="Assets\PlayerObject.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />

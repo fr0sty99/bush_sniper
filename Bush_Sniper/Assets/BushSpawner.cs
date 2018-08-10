@@ -6,16 +6,15 @@ public class BushSpawner : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         int random = Random.Range(0,10);
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < random; i++)
         {
             Bounds bounds = GetComponent<SpriteRenderer>().bounds;
             float rangeX = bounds.size.x/2;
             float rangeY = bounds.size.y/2;
-            float rangeZ = bounds.size.z;
             Debug.Log("Xrange of plane is: " + rangeX);
             Debug.Log("Yrange of plane is: " + rangeY);
 
-            Instantiate(nonPlayerBush, new Vector3(Random.Range(-rangeX , rangeX ), Random.Range(-rangeY , rangeY ), 0), Quaternion.identity);
+            Instantiate(nonPlayerBush, new Vector2(Random.Range(-rangeX , rangeX ), Random.Range(-rangeY , rangeY )), Quaternion.identity);
 
         }
 	}
