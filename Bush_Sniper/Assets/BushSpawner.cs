@@ -15,7 +15,7 @@ public class BushSpawner : MonoBehaviour {
             Debug.Log("Yrange of plane is: " + rangeY);
 
             Instantiate(nonPlayerBush, new Vector2(Random.Range(-rangeX , rangeX ), Random.Range(-rangeY , rangeY )), Quaternion.identity);
-
+            Debug.Log("Spawned Bush #" + i);
         }
 	}
 	

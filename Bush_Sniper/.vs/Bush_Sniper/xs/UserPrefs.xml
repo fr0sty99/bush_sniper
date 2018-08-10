@@ -2,12 +2,12 @@
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/IslandSpawner.cs">
     <Files>
-      <File FileName="Assets/PlayerObject.cs" Line="98" Column="53" />
+      <File FileName="Assets/PlayerObject.cs" Line="107" Column="41" />
       <File FileName="Assets/BulletScript.cs" Line="1" Column="1" />
-      <File FileName="Assets/BushSpawner.cs" Line="7" Column="17" />
+      <File FileName="Assets/BushSpawner.cs" Line="8" Column="41" />
       <File FileName="Assets/BushScript.cs" Line="1" Column="1" />
       <File FileName="Assets/CameraController.cs" Line="18" Column="6" />
-      <File FileName="Assets/IslandSpawner.cs" Line="9" Column="33" />
+      <File FileName="Assets/IslandSpawner.cs" Line="12" Column="10" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
