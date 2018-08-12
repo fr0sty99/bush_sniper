@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: dfe20030902154c74a8bc31b69dab521
+  - enabled: 1
+    path: Assets/Scenes/BushSniper.unity
+    guid: 21f0f9b35dd7f4eabb83e705dd96512e
   m_configObjects: {}
