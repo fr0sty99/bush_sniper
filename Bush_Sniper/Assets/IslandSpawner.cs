@@ -7,7 +7,7 @@ public class IslandSpawner : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Instantiate(island, new Vector3(transform.position.x, transform.position.y, 0.5f), Quaternion.identity);
+        Instantiate(island, new Vector3(transform.position.x, transform.position.y, 1f), Quaternion.identity);
     }
 	
 	// Update is called once per frame
