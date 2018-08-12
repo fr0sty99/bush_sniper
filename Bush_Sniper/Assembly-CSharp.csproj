@@ -66,9 +66,11 @@
     <Compile Include="Assets\CameraController.cs" />
     <Compile Include="Assets\Direction.cs" />
     <Compile Include="Assets\Field.cs" />
+    <Compile Include="Assets\Islandgenerator.cs" />
     <Compile Include="Assets\IslandSpawner.cs" />
     <Compile Include="Assets\MapGenerator.cs" />
     <Compile Include="Assets\PlayerObject.cs" />
+    <Compile Include="Assets\PlayerSpawner.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />

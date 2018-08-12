@@ -22,13 +22,15 @@ public class PlayerObject : MonoBehaviour
     {
         player = GetComponent<Rigidbody2D>();
 
+        /*
         Debug.Log("before calling generateIslands");
         generateIslands();
+    */
     }
 
     void Update()
     {
-        
+
         // hack
         if (transform.position.z != 0)
         {
@@ -75,7 +77,7 @@ public class PlayerObject : MonoBehaviour
         }
 
 
-        if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) &&  !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
         {
             moving = false;
         }
@@ -92,8 +94,8 @@ public class PlayerObject : MonoBehaviour
         currentMousePos.z = 0; // flatten the vector into 2D
 
         currentPlayerPos = new Vector3(player.position.x, player.position.y, 0);
-       // Debug.Log("playerPos2D: " + currentPlayerPos);
-     //   Debug.Log("mousePos2D: " + currentMousePos);
+        // Debug.Log("playerPos2D: " + currentPlayerPos);
+        //   Debug.Log("mousePos2D: " + currentMousePos);
 
         // bullet spawninig
         if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire && moving)
@@ -107,7 +109,7 @@ public class PlayerObject : MonoBehaviour
             Vector3 direction = heading / dist;
             GameObject bulletClone = Instantiate(bullet, currentPlayerPos + direction * 0.4f, Quaternion.identity);
             currentPlayerPos.z = 0.22f;
-            currentMousePos.z = 0.22f;  
+            currentMousePos.z = 0.22f;
             gun.transform.position = currentPlayerPos;
             //  bulletClone.transform.LookAt(currentMousePos);
             Rigidbody rb = bulletClone.GetComponent<Rigidbody>();
@@ -122,16 +124,20 @@ public class PlayerObject : MonoBehaviour
         removeDistantShots();
     }
 
-    void cloakIfWalking () {
+    void cloakIfWalking()
+    {
         // if player is moving
-        if(moving) {
+        if (moving)
+        {
             // show gunBarrel
             gun.GetComponent<SpriteRenderer>().enabled = true;
-       //     Debug.Log("activated gunBarrel!");
-        } else {
+            //     Debug.Log("activated gunBarrel!");
+        }
+        else
+        {
             // if he is standing still, hide gunBarrel
             gun.GetComponent<SpriteRenderer>().enabled = false;
-       //     Debug.Log("deactivated gunBarrel!");
+            //     Debug.Log("deactivated gunBarrel!");
         }
     }
 
@@ -140,7 +146,7 @@ public class PlayerObject : MonoBehaviour
 
         currentPlayerPos.z = -0.1f;
         gun.transform.position = currentPlayerPos;
-            
+
         // Script for angle rotation towards mouse ( only works for squared Displays...)
         // TODO: make script for any display size
         Vector2 mouse = Camera.main.ScreenToViewportPoint(Input.mousePosition);       //Mouse position
@@ -148,7 +154,8 @@ public class PlayerObject : MonoBehaviour
         Vector2 relobjpos = new Vector2(objpos.x - 0.5f, objpos.y - 0.5f);            //Set coordinates relative to object
         Vector2 relmousepos = new Vector2(mouse.x - 0.5f, mouse.y - 0.5f) - relobjpos;
         float angle = Vector2.Angle(-Vector2.up, relmousepos);    //Angle calculation
-        if (relmousepos.x > 0) {
+        if (relmousepos.x > 0)
+        {
             angle = 360 - angle;
         }
         Quaternion quat = Quaternion.identity;
@@ -163,7 +170,7 @@ public class PlayerObject : MonoBehaviour
         foreach (GameObject bullet in bulletList)
         {
             Vector3 distance = currentPlayerPos - bullet.transform.position;
-    //        Debug.Log("distance: " + distance.magnitude.ToString());
+            //        Debug.Log("distance: " + distance.magnitude.ToString());
             if (distance.magnitude > shootingDistance)
             {
                 Destroy(bullet);
@@ -172,7 +179,8 @@ public class PlayerObject : MonoBehaviour
         }
     }
 
-    void generateIslands() {
+    void generateIslands()
+    {
         Debug.Log("called generateIslands!");
         MapGenerator generator = new MapGenerator(5);
         // starts itself when ready
