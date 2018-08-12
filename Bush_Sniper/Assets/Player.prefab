@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moving: 0
   player: {fileID: 50694406986136306}
-  bullet: {fileID: 0}
+  bullet: {fileID: 1579740310790484, guid: d69a7d6cee8ab41fb8a12b75a02eb053, type: 2}
   gun: {fileID: 1884984394501024}
   fireRate: 0.3
   moveSpeed: 7

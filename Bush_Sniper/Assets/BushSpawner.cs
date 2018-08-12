@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 public class BushSpawner : MonoBehaviour {
-    public GameObject nonPlayerBush = null;
 
     int islandDiameter = 5;
 
@@ -10,7 +9,7 @@ public class BushSpawner : MonoBehaviour {
         int random = Random.Range(0,10);
         for (int i = 0; i < random; i++)
         {
-            Instantiate(nonPlayerBush, new Vector2(Random.Range(transform.position.x - islandDiameter , transform.position.x + islandDiameter ), 
+            Instantiate(Resources.Load("Assets/NonPlayerBush") as GameObject, new Vector2(Random.Range(transform.position.x - islandDiameter , transform.position.x + islandDiameter ), 
                                                    Random.Range(transform.position.y - islandDiameter , transform.position.y + islandDiameter )), Quaternion.identity);
         }
 	}

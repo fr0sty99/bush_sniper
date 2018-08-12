@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class IslandSpawner : MonoBehaviour {
-    List<GameObject> islandList = new List<GameObject>();
+    public GameObject island;
 
     // Use this for initialization
     void Start () {
-        for (int i = 0; i < 10; i++) {
-
-        }
+        Instantiate(island, new Vector3(transform.position.x, transform.position.y, 0.5f), Quaternion.identity);
     }
 	
 	// Update is called once per frame

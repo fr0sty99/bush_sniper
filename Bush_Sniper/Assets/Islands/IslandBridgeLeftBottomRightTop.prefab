@@ -151,8 +151,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4335182292846176}
-  - component: {fileID: 114039152311026836}
   - component: {fileID: 212841570455182266}
+  - component: {fileID: 114851102496135652}
   m_Layer: 0
   m_Name: IslandBridgeLeftBottomRightTop
   m_TagString: Untagged
@@ -605,18 +605,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6413653, y: 0.51995206}
   m_EdgeRadius: 0
---- !u!114 &114039152311026836
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1426980406581634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5872af6683f8a4246838585690701d72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nonPlayerBush: {fileID: 0}
 --- !u!114 &114357010529997410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -628,7 +616,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5872af6683f8a4246838585690701d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nonPlayerBush: {fileID: 0}
 --- !u!114 &114652178650357324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -640,7 +627,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5872af6683f8a4246838585690701d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nonPlayerBush: {fileID: 0}
+--- !u!114 &114851102496135652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1426980406581634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5872af6683f8a4246838585690701d72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114915023898680490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -652,7 +649,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5872af6683f8a4246838585690701d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nonPlayerBush: {fileID: 0}
 --- !u!114 &114944997195922112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -664,7 +660,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5872af6683f8a4246838585690701d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nonPlayerBush: {fileID: 0}
 --- !u!212 &212016895203890248
 SpriteRenderer:
   m_ObjectHideFlags: 1
