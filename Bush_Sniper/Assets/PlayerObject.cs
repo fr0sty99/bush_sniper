@@ -22,10 +22,13 @@ public class PlayerObject : MonoBehaviour
     {
         player = GetComponent<Rigidbody2D>();
 
+        Debug.Log("before calling generateIslands");
+        generateIslands();
     }
 
     void Update()
     {
+        
         // hack
         if (transform.position.z != 0)
         {
@@ -89,8 +92,8 @@ public class PlayerObject : MonoBehaviour
         currentMousePos.z = 0; // flatten the vector into 2D
 
         currentPlayerPos = new Vector3(player.position.x, player.position.y, 0);
-        Debug.Log("playerPos2D: " + currentPlayerPos);
-        Debug.Log("mousePos2D: " + currentMousePos);
+       // Debug.Log("playerPos2D: " + currentPlayerPos);
+     //   Debug.Log("mousePos2D: " + currentMousePos);
 
         // bullet spawninig
         if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire && moving)
@@ -124,11 +127,11 @@ public class PlayerObject : MonoBehaviour
         if(moving) {
             // show gunBarrel
             gun.GetComponent<SpriteRenderer>().enabled = true;
-            Debug.Log("activated gunBarrel!");
+       //     Debug.Log("activated gunBarrel!");
         } else {
             // if he is standing still, hide gunBarrel
             gun.GetComponent<SpriteRenderer>().enabled = false;
-            Debug.Log("deactivated gunBarrel!");
+       //     Debug.Log("deactivated gunBarrel!");
         }
     }
 
@@ -160,7 +163,7 @@ public class PlayerObject : MonoBehaviour
         foreach (GameObject bullet in bulletList)
         {
             Vector3 distance = currentPlayerPos - bullet.transform.position;
-            Debug.Log("distance: " + distance.magnitude.ToString());
+    //        Debug.Log("distance: " + distance.magnitude.ToString());
             if (distance.magnitude > shootingDistance)
             {
                 Destroy(bullet);
@@ -170,36 +173,9 @@ public class PlayerObject : MonoBehaviour
     }
 
     void generateIslands() {
-        GameObject bridge;
-        List<GameObject> islandList = new List<GameObject>();
-        for (int i = 0; i < 10; i ++) {
-            int random = Random.Range(0, 4);
-            List<GameObject> bridgeList = new List<GameObject>();
-            for (int j = 0; j < random; j++) {
-                int random2 = Random.Range(0, 4);
-                switch(random2) {
-                    case 0:
-                        // top 
-                        //GameObject topBridgeVertical = Instantiate(bridge, )
-                        break;
-
-                    case 1:
-                        
-                        break;
-
-                    case 2:
-
-                        break;
-
-                    case 3:
-
-                        break;
-                }
-
-
-
-            }
-        }
+        Debug.Log("called generateIslands!");
+        MapGenerator generator = new MapGenerator(5);
+        // starts itself when ready
     }
 
 }

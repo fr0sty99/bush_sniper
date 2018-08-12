@@ -59,11 +59,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Bridge.cs" />
     <Compile Include="Assets\BulletScript.cs" />
     <Compile Include="Assets\BushScript.cs" />
     <Compile Include="Assets\BushSpawner.cs" />
     <Compile Include="Assets\CameraController.cs" />
+    <Compile Include="Assets\Direction.cs" />
+    <Compile Include="Assets\Field.cs" />
     <Compile Include="Assets\IslandSpawner.cs" />
+    <Compile Include="Assets\MapGenerator.cs" />
     <Compile Include="Assets\PlayerObject.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />

@@ -11,11 +11,11 @@ public class BushSpawner : MonoBehaviour {
             Bounds bounds = GetComponent<SpriteRenderer>().bounds;
             float rangeX = bounds.size.x/2;
             float rangeY = bounds.size.y/2;
-            Debug.Log("Xrange of plane is: " + rangeX);
-            Debug.Log("Yrange of plane is: " + rangeY);
+  //         Debug.Log("Xrange of plane is: " + rangeX);
+  //          Debug.Log("Yrange of plane is: " + rangeY);
 
             Instantiate(nonPlayerBush, new Vector2(Random.Range(-rangeX , rangeX ), Random.Range(-rangeY , rangeY )), Quaternion.identity);
-            Debug.Log("Spawned Bush #" + i);
+       //     Debug.Log("Spawned Bush #" + i);
         }
 	}
 	
