@@ -92,6 +92,7 @@
     <Compile Include="Assets\AssetStoreStuff\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\AssetStoreStuff\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\AssetStoreStuff\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+    <Compile Include="Assets\GunScript.cs" />
     <Compile Include="Assets\Scripts\Bridge.cs" />
     <Compile Include="Assets\Scripts\BulletScript.cs" />
     <Compile Include="Assets\Scripts\BushScript.cs" />

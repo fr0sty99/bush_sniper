@@ -218,6 +218,7 @@
 'Assets/AssetStoreStuff/TextMesh Pro/Examples & Extras/Scripts/VertexShakeB.cs'
 'Assets/AssetStoreStuff/TextMesh Pro/Examples & Extras/Scripts/VertexZoom.cs'
 'Assets/AssetStoreStuff/TextMesh Pro/Examples & Extras/Scripts/WarpTextExample.cs'
+'Assets/GunScript.cs'
 'Assets/Scripts/Bridge.cs'
 'Assets/Scripts/BulletScript.cs'
 'Assets/Scripts/BushScript.cs'

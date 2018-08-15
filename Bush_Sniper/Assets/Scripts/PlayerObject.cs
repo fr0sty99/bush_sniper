@@ -17,6 +17,8 @@ public class PlayerObject : MonoBehaviour
     public float moveSpeed = 5f;
     public int shootingDistance;
     public float bulletSpeed = 3f;
+    public float bulletSpawnDistance = 0.6f;
+    public float gunSpawnDistance = 0.5f;
 
     void Start()
     {
@@ -107,10 +109,10 @@ public class PlayerObject : MonoBehaviour
             Vector3 heading = currentMousePos - currentPlayerPos;
             float dist = heading.magnitude;
             Vector3 direction = heading / dist;
-            GameObject bulletClone = Instantiate(bullet, currentPlayerPos + direction * 0.4f, Quaternion.identity);
+            GameObject bulletClone = Instantiate(bullet, currentPlayerPos + direction * bulletSpawnDistance, Quaternion.identity);
             currentPlayerPos.z = 0.22f;
             currentMousePos.z = 0.22f;
-            gun.transform.position = currentPlayerPos;
+
             //  bulletClone.transform.LookAt(currentMousePos);
             Rigidbody rb = bulletClone.GetComponent<Rigidbody>();
             rb.velocity = new Vector2(direction.x * bulletSpeed, direction.y * bulletSpeed);
@@ -127,13 +129,13 @@ public class PlayerObject : MonoBehaviour
     void cloakIfWalking()
     {
         // if player is moving
-        if (moving)
+        if (false)
         {
             // show gunBarrel
             gun.GetComponent<SpriteRenderer>().enabled = true;
             //     Debug.Log("activated gunBarrel!");
         }
-        else
+        else if (false)
         {
             // if he is standing still, hide gunBarrel
             gun.GetComponent<SpriteRenderer>().enabled = false;
@@ -145,26 +147,52 @@ public class PlayerObject : MonoBehaviour
     {
 
         currentPlayerPos.z = -0.1f;
-        gun.transform.position = currentPlayerPos;
 
         // Script for angle rotation towards mouse ( only works for squared Displays...)
         // TODO: make script for any display size
-        Vector2 mouse = Camera.main.ScreenToViewportPoint(Input.mousePosition);       //Mouse position
-        Vector3 objpos = Camera.main.WorldToViewportPoint(gun.transform.position);        //Object position on screen
-        Vector2 relobjpos = new Vector2(objpos.x - 0.5f, objpos.y - 0.5f);            //Set coordinates relative to object
-        Vector2 relmousepos = new Vector2(mouse.x - 0.5f, mouse.y - 0.5f) - relobjpos;
+        Vector2 mousePos = Camera.main.ScreenToViewportPoint(Input.mousePosition);       // Mouse position on screen
+        Vector2 gunPos = Camera.main.WorldToViewportPoint(gun.transform.position);        // gun position on screen
+        Vector2 playerPos = Camera.main.WorldToViewportPoint(player.transform.position); // player position on screen
+        Vector2 relobjpos = new Vector2(gunPos.x - 0.5f, gunPos.y - 0.5f);            //Set coordinates relative to object
+              
+        Vector2 relmousepos = new Vector2(mousePos.x - 0.5f, mousePos.y - 0.5f) - relobjpos;
         float angle = Vector2.Angle(-Vector2.up, relmousepos);    //Angle calculation
+
         if (relmousepos.x > 0)
         {
             angle = 360 - angle;
         }
         Quaternion quat = Quaternion.identity;
         quat.eulerAngles = new Vector3(0, 0, angle); //Changing angle
+
+        // rotate gun
         gun.transform.rotation = quat;
+
+        Vector2 mousePoss = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector3 heading = mousePoss - player.position;
+        float distance = heading.magnitude;
+        Vector3 direction = heading / distance;
+        direction.y = -direction.y;
+        direction.z = -0.5f;
+
+        // manage distance between player and gun
+        // not working nice.. looks like SHIT: gun.transform.position = Vector2.MoveTowards(player.transform.position, targetPos, gunSpawnDistance * Time.deltaTime);
+      
+        // this works better for the moment, but its still not perfect when you aim at your own player with the mouse
+        gun.transform.position = player.transform.position + direction * gunSpawnDistance;
+
+      
+
 
     }
 
-    void removeDistantShots()
+	private void FixedUpdate()
+	{
+		
+	}
+
+	void removeDistantShots()
     {
         // debug
         foreach (GameObject bullet in bulletList)
