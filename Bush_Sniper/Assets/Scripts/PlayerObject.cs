@@ -103,10 +103,23 @@ public class PlayerObject : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire && moving)
         {
             nextFire = Time.time + fireRate;
-
-            // mousePosition relative to scene NOT to camera (this would be Input.mousePosition ;) )
-
-            Vector3 heading = currentMousePos - currentPlayerPos;
+            // bullet without travelSpeed, we use so called raycasts here to determine if we hit something
+            /*
+            // Does the ray intersect any objects excluding the player layer
+            RaycastHit2D hit = Physics2D.Raycast(player.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), shootingDistance, 0);
+            if (hit != null)
+            {
+                Debug.DrawRay(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) * hit.distance, Color.yellow);
+                Debug.Log("Did Hit: " + hit.collider);
+            }
+            else
+            {
+                Debug.DrawRay(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) * shootingDistance    , Color.white);
+                Debug.Log("Did not Hit");
+            }
+            */
+            // bullet with travelspeed 
+           Vector3 heading = currentMousePos - currentPlayerPos;
             float dist = heading.magnitude;
             Vector3 direction = heading / dist;
             GameObject bulletClone = Instantiate(bullet, currentPlayerPos + direction * bulletSpawnDistance, Quaternion.identity);
@@ -117,6 +130,7 @@ public class PlayerObject : MonoBehaviour
             Rigidbody rb = bulletClone.GetComponent<Rigidbody>();
             rb.velocity = new Vector2(direction.x * bulletSpeed, direction.y * bulletSpeed);
             bulletList.AddFirst(bulletClone);
+
         }
 
         aimAtMouse();
@@ -129,17 +143,15 @@ public class PlayerObject : MonoBehaviour
     void cloakIfWalking()
     {
         // if player is moving
-        if (false)
+        if (moving)
         {
             // show gunBarrel
             gun.GetComponent<SpriteRenderer>().enabled = true;
-            //     Debug.Log("activated gunBarrel!");
         }
-        else if (false)
+        else
         {
             // if he is standing still, hide gunBarrel
             gun.GetComponent<SpriteRenderer>().enabled = false;
-            //     Debug.Log("deactivated gunBarrel!");
         }
     }
 
@@ -183,9 +195,7 @@ public class PlayerObject : MonoBehaviour
         gun.transform.position = player.transform.position + direction * gunSpawnDistance;
 
       
-
-
-    }
+       }
 
 	private void FixedUpdate()
 	{
@@ -205,9 +215,64 @@ public class PlayerObject : MonoBehaviour
                 bulletList.Remove(bullet);
             }
         }
-    }
+    }	
 
-    void generateIslands()
+
+
+
+
+
+
+
+
+    /*
+
+
+
+TODO:
+
+
+
+The cube lives in 3D world space. Your cursor lives in 2D screen space. So "get near" means you first have to calculate the distance between the camera and a plane passing through the object you are testing parallel to the plane of the camera. This distance allows you to project the mouse position into the 3D world. If you are looking down the 'Z' axis, then that distance will be the difference in 'Z' values of the two objects. Once you calculate the distance, you can use Camera.ScreenToWorldPoint() to calculate the position of the mouse. Assuming looking down the 'Z' axis:
+
+     var dist = Mathf.Abs(transform.position.z - Camera.manin.transform.position.z);
+     var v3Pos = Vector3(Input.mousePosition.x, Input.mousePosition.y, dist);
+     v3Pos = Camera.main.ScreenToWorldPoint(v3Pos);
+
+Now you can calculate the distance between the 'cursor' and your object:
+
+     var distanceBetween = Vector3.Distance(v3Pos, transform.position);
+
+If your camera is moving around (i.e. not just looking down the 'Z' axis) for what you are doing here you can fudge the distance calculation and just use the distance between the camera and the object for distance:
+
+     var dist = Vector3.Distance(Camera.main.transform.position, transform.position);
+
+Or if for some reason you need a more accurate distance calculation, you can approach your problem using Unity's mathematical Plane class:
+
+     var plane = new Plane(Camera.main.transform.forward, transform.position);
+     var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+     var dist : float;
+     if (plane.Raycast(ray, dist)) {
+         var v3Pos = ray.GetPoint(dist);
+         var distanceBetween = Vector3.Distance(v3Pos, transform.position);
+     }
+
+
+
+
+
+*/
+
+
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+	{
+        Debug.Log("Collider: " + collision);
+
+	}
+
+	void generateIslands()
     {
         Debug.Log("called generateIslands!");
         MapGenerator generator = new MapGenerator(5);
