@@ -7,6 +7,7 @@ public class PlayerMotor : MonoBehaviour
     private Vector2 velocity = Vector2.zero;
     private float rotationAngle = 0.0f;
     private Rigidbody2D rb;
+    private bool moving;
 
     void Start()
     {
@@ -15,9 +16,10 @@ public class PlayerMotor : MonoBehaviour
     }
 
     // Gets a movement vector
-    public void Move(Vector2 _velocity)
+    public void Move(Vector2 _velocity, bool _moving)
     {
         velocity = _velocity;
+        moving = _moving;
     }
 
     // Gets a rotation Vector
@@ -43,7 +45,7 @@ public class PlayerMotor : MonoBehaviour
 
     void PerformRotation()
     {
-        rb.rotation += rotationAngle;
+        rb.rotation = rotationAngle;
         Debug.Log("PerformRotation -- MoveRotation: " + rotationAngle);
     }
 }

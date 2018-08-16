@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 [RequireComponent(typeof(PlayerMotor))]     // This script requires the Gameobject to have a PlayerMotor component
 public class PlayerController : MonoBehaviour
@@ -6,6 +7,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]    // When you mark a variable with "SerializeField", it will show up in the inspector, even tho it's a private variable
     private float speed = 5f;
+    private bool moving = false;
 
 
     private PlayerMotor motor;
@@ -20,32 +22,81 @@ public class PlayerController : MonoBehaviour
     {
         // Calculate movement velocity as a 2D Vector
         // get user input
-        float _xMov = Input.GetAxisRaw("Horizontal");
-        float _yMov = Input.GetAxisRaw("Vertical");
+
+        Vector2 _moveVertical = Vector2.zero;
+        Vector2 _moveHorizontal = Vector2.zero;
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            _moveHorizontal = -transform.right;
+            moving = true;
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            _moveVertical = -transform.up;
+            moving = true;
+        }
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            _moveVertical = transform.up;
+            moving = true;
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            _moveHorizontal = transform.right;
+            moving = true;
+        }
+
+        if (Input.GetKeyUp(KeyCode.A)) {
+            _moveHorizontal = Vector2.zero;
+            moving = false;
+        }
+
+        if (Input.GetKeyUp(KeyCode.S)) {
+            _moveVertical = Vector2.zero;
+            moving = false;
+
+        }
+
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            _moveVertical = Vector2.zero;
+            moving = false;
+
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            _moveHorizontal = Vector2.zero;
+            moving = false;
+        }
+
+        Vector2 _velocity = (_moveVertical + _moveHorizontal) * speed;
+
+      //  float _xMov = Input.GetAxisRaw("Horizontal");
+     //   float _yMov = Input.GetAxisRaw("Vertical");
 
         // calculate seperated x- and y- axis velocity
-        Vector2 _moveVertical = transform.up * _yMov;
-        Vector2 _moveHorizontal = transform.right * _xMov;
+        // Vector2 _moveVertical = transform.up * _yMov;
+        // Vector2 _moveHorizontal = transform.right * _xMov;
 
         // calculate final movement vector and make it a normalized magnitude, which means the length of the Vector will always be 1, before multiplying it with the players speed
-        Vector2 _velocity = (_moveHorizontal + _moveVertical).normalized * speed;
+      //  Vector2 _velocity = (_moveHorizontal + _moveVertical).normalized * speed;
 
         // apply movement
-        motor.Move(_velocity);
+        motor.Move(_velocity, moving);
+
 
         // Calculatre rotation as a 2D Vector
         Vector2 _mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Debug.Log("mousePos: " + _mousePos);
+        Vector2 diff = _mousePos - (Vector2) transform.position;
+        diff.Normalize();
+        float _rotZ = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
 
-        Vector2 _playerPos = transform.position;
-        Debug.Log("playerPos: " + _playerPos);
-
-        // for calculating the angle between the two points we need this formula from https://www.mathworks.com/matlabcentral/answers/180131-how-can-i-find-the-angle-between-two-vectors-including-directional-information
-        // angle = atan2d(x*_mousePos.y-_playerPos.y*_mousePos.x,_playerPos.x*_mousePos.x+_playerPos.y*_mousePos.y);
-        float angle = Mathf.Atan2(_playerPos.x * _mousePos.y - _playerPos.y * _mousePos.x, _playerPos.x * _mousePos.x + _playerPos.y * _mousePos.y);
-
-        Debug.Log("RotationAngle: " + angle);
-        motor.Rotate(angle);
+        // apply rotation
+        motor.Rotate(_rotZ);
 
 
         // TODO: move gun and change it's angle relative to playerPosition and mousePosition     
