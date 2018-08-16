@@ -3,8 +3,8 @@
 [RequireComponent(typeof(Rigidbody2D))]     // This script requires the GameObject to have a Rigidbody2D component
 public class PlayerMotor : MonoBehaviour {
 
-    private Vector2 velocity = Vector3.zero;
-
+    private Vector2 velocity = Vector2.zero;
+    private float rotationAngle = 0.0f;
     private Rigidbody2D rb;
 
 	void Start()
@@ -13,8 +13,32 @@ public class PlayerMotor : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
 	}
 
-    public void Move (Vector2 _velocity) {
-        
+    // Gets a movement vector
+    public void Move(Vector2 _velocity)
+    {
+        velocity = _velocity;
     }
 
+    // Gets a rotation Vector
+    public void Rotate(float _rotationAngle) {
+        rotationAngle = _rotationAngle;
+    }
+
+    void FixedUpdate () 
+    {
+        PerformMovement();
+        PerformRotation();
+    }
+
+    // Perform movement based on velocity variable
+    void PerformMovement () {
+        if(velocity != (Vector2.zero)) {
+            rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
+        }
+    }
+
+    void PerformRotation() { 
+        rb.rotation = rotationAngle;
+        Debug.Log("PerformRotation -- MoveRotation: " + rotationAngle);
+        }
 }
