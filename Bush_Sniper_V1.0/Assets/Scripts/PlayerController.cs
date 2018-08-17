@@ -4,11 +4,9 @@ using System;
 [RequireComponent(typeof(PlayerMotor))]     // This script requires the Gameobject to have a PlayerMotor component
 public class PlayerController : MonoBehaviour
 {
-
     [SerializeField]    // When you mark a variable with "SerializeField", it will show up in the inspector, even tho it's a private variable
     private float speed = 5f;
     private bool moving = false;
-
 
     private PlayerMotor motor;
 
@@ -71,7 +69,6 @@ public class PlayerController : MonoBehaviour
 
         // add up velocities and multiply with speed
         Vector2 _velocity = (_moveVertical + _moveHorizontal) * speed;
-
 
         // apply movement
         motor.Move(_velocity);
