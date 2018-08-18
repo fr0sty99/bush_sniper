@@ -4,7 +4,9 @@
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]    // When you mark a variable with "SerializeField", it will show up in the inspector, even tho it's a private variable
-    private float speed = 10f;
+    private float speed;
+    [SerializeField]
+    private Camera followCam;
 
     private PlayerMotor motor;
 
@@ -67,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
 
         // Calculatre rotation as a 2D Vector
-        Vector2 _mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 _mousePos = followCam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 diff = _mousePos - (Vector2)transform.position;
         diff.Normalize();
         float _rotation = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;

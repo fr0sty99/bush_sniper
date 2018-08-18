@@ -7,7 +7,8 @@ public class PlayerSetup : NetworkBehaviour
     Behaviour[] componentsToDisable;
 
     [SerializeField]
-    GameObject followCamera;
+    Camera followCamera;
+    Camera sceneCamera;
 
     void Start()
     {
@@ -20,9 +21,21 @@ public class PlayerSetup : NetworkBehaviour
         }
         else
         {
-            GetComponentInParent<FollowCamera>().setTarget(transform);
-        }
+            sceneCamera = Camera.main;
+            if(sceneCamera != null) {
+                sceneCamera.gameObject.SetActive(false);
+            }
 
+
+            followCamera.GetComponent<FollowCamera>().setTarget(transform);
+        }
+    }
+
+    void onDisable() // gets also called when the object is destroyed
+    {
+        if(sceneCamera != null) {
+            sceneCamera.gameObject.SetActive(true);
+        }
     }
 
 }
