@@ -59,9 +59,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\CameraManager.cs" />
+    <Compile Include="Assets\Scripts\FollowCamera.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerMotor.cs" />
+    <Compile Include="Assets\Scripts\PlayerSetup.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

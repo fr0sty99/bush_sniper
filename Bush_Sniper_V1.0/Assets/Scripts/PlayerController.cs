@@ -12,9 +12,6 @@ public class PlayerController : MonoBehaviour
     {
         // no checking for errors needed because we use RequireComponent
         motor = GetComponent<PlayerMotor>();
-
-        // give our camera the playerObject
-        Camera.main.GetComponent<CameraManager>().setTarget(transform.root.gameObject);
     }
 
     void Update()
