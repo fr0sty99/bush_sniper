@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
-using System;
 
 [RequireComponent(typeof(PlayerMotor))]     // This script requires the Gameobject to have a PlayerMotor component
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]    // When you mark a variable with "SerializeField", it will show up in the inspector, even tho it's a private variable
-    private float speed = 5f;
-    private bool moving = false;
+    private float speed = 10f;
 
     private PlayerMotor motor;
 
@@ -15,6 +13,8 @@ public class PlayerController : MonoBehaviour
         // no checking for errors needed because we use RequireComponent
         motor = GetComponent<PlayerMotor>();
 
+        // give our camera the playerObject
+        Camera.main.GetComponent<CameraManager>().setTarget(transform.root.gameObject);
     }
 
     void Update()
@@ -24,42 +24,37 @@ public class PlayerController : MonoBehaviour
         Vector2 _moveVertical = Vector2.zero;
         Vector2 _moveHorizontal = Vector2.zero;
 
-        if (Input.GetKey(KeyCode.A))
+        // add velocity if user is pressing buttons
+        if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
         {
             _moveHorizontal = Vector2.left;
-            moving = true;
         }
-        if (Input.GetKey(KeyCode.S))
-        {
-            _moveVertical = Vector2.down;
-            moving = true;
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            _moveVertical = Vector2.up;
-            moving = true;
-        }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
         {
             _moveHorizontal = Vector2.right;
-            moving = true;
         }
+        if (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
+        {
+            _moveVertical = Vector2.down;
+        }
+        if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        {
+            _moveVertical = Vector2.up;
+        }
+
+        // remove velocity if the user stops pressing buttons
         if (Input.GetKeyUp(KeyCode.A))
         {
             _moveHorizontal = Vector2.zero;
-            moving = false;
         }
         if (Input.GetKeyUp(KeyCode.S))
         {
             _moveVertical = Vector2.zero;
-            moving = false;
 
         }
         if (Input.GetKeyUp(KeyCode.W))
         {
             _moveVertical = Vector2.zero;
-            moving = false;
-
         }
         if (Input.GetKeyUp(KeyCode.D))
         {
