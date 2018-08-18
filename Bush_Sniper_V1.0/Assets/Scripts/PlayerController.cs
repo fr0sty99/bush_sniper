@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Calculate movement velocity from user
         Vector2 _moveVertical = Vector2.zero;
         Vector2 _moveHorizontal = Vector2.zero;
 

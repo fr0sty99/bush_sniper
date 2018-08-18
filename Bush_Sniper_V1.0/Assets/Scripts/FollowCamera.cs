@@ -6,7 +6,7 @@ public class FollowCamera : MonoBehaviour
 
     [SerializeField]
     float cameraDistance;
-    Transform playerTransform;
+    Transform target;
 
     // Use this for initialization
     void Start()
@@ -15,17 +15,18 @@ public class FollowCamera : MonoBehaviour
         transform.parent = null;
     }
 
-    public void setTarget(Transform target)
+    public void setTarget(Transform _target)
     {
         // we dont move our object with the player but we still need it's transform to know the players position
-        this.playerTransform = target;
+        this.target = _target;
     }
 
     void FixedUpdate()
     {
-        if (playerTransform != null)
+        // if the target is set, follow it in a given cameraDistance
+        if (target != null)
         {
-            transform.position = new Vector3(playerTransform.position.x, playerTransform.position.y, playerTransform.position.z - cameraDistance);
+            transform.position = new Vector3(target.position.x, target.position.y, target.position.z - cameraDistance);
         }
     }
 }

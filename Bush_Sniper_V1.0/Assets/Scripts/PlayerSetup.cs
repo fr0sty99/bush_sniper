@@ -13,7 +13,8 @@ public class PlayerSetup : NetworkBehaviour
 
     void Start()
     {
-        if (!isLocalPlayer)
+        // if this object is not the clients player, disable the choosen components
+        if (!isLocalPlayer) 
         {
             for (int i = 0; i < componentsToDisable.Length; i++)
             {
@@ -22,19 +23,23 @@ public class PlayerSetup : NetworkBehaviour
         }
         else
         {
+            // change from MainCamera to followCamera
             sceneCamera = Camera.main;
             if(sceneCamera != null) {
                 sceneCamera.gameObject.SetActive(false);
             }
 
+            // give the followCamera it's target
             followCamera.GetComponent<FollowCamera>().setTarget(transform);
         }
     }
-
+    s
     void onDisable() // gets also called when the object is destroyed
     {
-        if(sceneCamera != null) {
+        // switch from followCamera to SceneCamera when playerObject is destroyed
+        if(sceneCamera != null && followCamera != null) {
             sceneCamera.gameObject.SetActive(true);
+            followCamera.gameObject.SetActive(false);
         }
     }
 
