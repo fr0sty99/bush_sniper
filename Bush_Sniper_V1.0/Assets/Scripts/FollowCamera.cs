@@ -9,17 +9,17 @@ public class FollowCamera : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        // Detach the transform from player
-        transform.parent = null;
+
     }
 
-    public void setTarget(Transform target) {
+    public void setTarget(Transform target)
+    {
         this.playerTransform = target;
     }
 
     void FixedUpdate()
     {
-        if(playerTransform != null) 
+        if (playerTransform != null)
         {
             transform.position = new Vector3(playerTransform.position.x, playerTransform.position.y, playerTransform.position.z - cameraDistance);
         }
