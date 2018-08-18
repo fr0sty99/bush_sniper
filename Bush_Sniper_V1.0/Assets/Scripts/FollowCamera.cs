@@ -9,7 +9,8 @@ public class FollowCamera : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        // detach from player, we want our own movement here
+        transform.parent = null;
     }
 
     public void setTarget(Transform target)
