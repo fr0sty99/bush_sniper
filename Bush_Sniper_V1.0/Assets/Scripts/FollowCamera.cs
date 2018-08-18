@@ -15,6 +15,7 @@ public class FollowCamera : MonoBehaviour
 
     public void setTarget(Transform target)
     {
+        // we dont move our object with the player but we still need it's transform to know the players position
         this.playerTransform = target;
     }
 

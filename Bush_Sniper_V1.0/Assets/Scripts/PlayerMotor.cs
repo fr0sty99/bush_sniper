@@ -36,7 +36,6 @@ public class PlayerMotor : MonoBehaviour
     {
         if (velocity != (Vector2.zero))
         {
-            // set Player position
             rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
           //  Debug.Log("PerformMovement -- MovePosition: " + (rb.position + velocity * Time.fixedDeltaTime);
         }

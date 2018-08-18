@@ -20,8 +20,7 @@ public class PlayerSetup : NetworkBehaviour
         }
         else
         {
-            GameObject go = Instantiate(followCamera, new Vector3(transform.position.x, transform.position.y, transform.position.z - 10.0f), Quaternion.identity);
-            go.GetComponent<FollowCamera>().setTarget(transform);
+            GetComponentInParent<FollowCamera>().setTarget(transform);
         }
 
     }
