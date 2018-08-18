@@ -3,9 +3,10 @@ using UnityEngine.Networking;
 
 public class PlayerSetup : NetworkBehaviour
 {
+    // This class is responsible for dis- and enabling components from other players in multiplayer.
+
     [SerializeField]
     Behaviour[] componentsToDisable;
-
     [SerializeField]
     Camera followCamera;
     Camera sceneCamera;
@@ -25,7 +26,6 @@ public class PlayerSetup : NetworkBehaviour
             if(sceneCamera != null) {
                 sceneCamera.gameObject.SetActive(false);
             }
-
 
             followCamera.GetComponent<FollowCamera>().setTarget(transform);
         }

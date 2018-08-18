@@ -3,6 +3,8 @@
 [RequireComponent(typeof(Rigidbody2D))]     // This script requires the GameObject to have a Rigidbody2D component
 public class PlayerMotor : MonoBehaviour
 {
+    // This class is responsible for moving the player.
+
     private Vector2 velocity = Vector2.zero;
     private float rotationAngle = 0.0f;
     private Rigidbody2D rb;

@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 1643713078}
   - component: {fileID: 1643713077}
   m_Layer: 0
-  m_Name: DefaultCamera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

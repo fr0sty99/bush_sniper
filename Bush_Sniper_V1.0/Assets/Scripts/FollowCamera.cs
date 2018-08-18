@@ -2,6 +2,8 @@
 
 public class FollowCamera : MonoBehaviour
 {
+    // This class makes the camera following a target in a given distance.
+
     [SerializeField]
     float cameraDistance;
     Transform playerTransform;

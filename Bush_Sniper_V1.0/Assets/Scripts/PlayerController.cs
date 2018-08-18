@@ -3,11 +3,12 @@
 [RequireComponent(typeof(PlayerMotor))]     // This script requires the Gameobject to have a PlayerMotor component
 public class PlayerController : MonoBehaviour
 {
+    // This class is responsible for the player input and informing the PlayerMotor what movements to perform next
+
     [SerializeField]    // When you mark a variable with "SerializeField", it will show up in the inspector, even tho it's a private variable
     private float speed;
     [SerializeField]
     private Camera followCam;
-
     private PlayerMotor motor;
 
     void Start()
@@ -18,8 +19,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Calculate movement velocity as a 2D Vector
-
+        // Calculate movement velocity from user
         Vector2 _moveVertical = Vector2.zero;
         Vector2 _moveHorizontal = Vector2.zero;
 
@@ -49,7 +49,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.S))
         {
             _moveVertical = Vector2.zero;
-
         }
         if (Input.GetKeyUp(KeyCode.W))
         {
@@ -58,7 +57,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.D))
         {
             _moveHorizontal = Vector2.zero;
-
         }
 
         // add up velocities and multiply with speed
@@ -67,18 +65,18 @@ public class PlayerController : MonoBehaviour
         // apply movement
         motor.Move(_velocity);
 
-
-        // Calculatre rotation as a 2D Vector
+        // create a vector "diff" from the mouse to the player
         Vector2 _mousePos = followCam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 diff = _mousePos - (Vector2)transform.position;
+
+        // shorten the vector to 1
         diff.Normalize();
+
+        // get the angle in float from the vector diff
         float _rotation = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
 
         // apply rotation
         motor.Rotate(_rotation);
-
-
-
-
     }
+
 }
