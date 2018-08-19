@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using System;
 
 public class PlayerShoot : NetworkBehaviour
 {
@@ -35,11 +36,17 @@ public class PlayerShoot : NetworkBehaviour
         Debug.DrawRay(_startPos, _destPos, Color.red);
 
         // if we hit a player
-        if (_hit.collider.tag == PLAYER_TAG) 
-        {
-            // tell server that we hit that player with its netID in its name
-            CmdPlayerShot(_hit.collider.name, transform.name, weapon.damage);
+        try{
+            if (_hit.collider.tag == PLAYER_TAG)
+            {
+                // tell server that we hit that player with its netID in its name
+                CmdPlayerShot(_hit.collider.name, transform.name, weapon.damage);
+            }
+        } catch(Exception e) {
+            Debug.Log("Catched Error in PlayerShoot.Shoot: " + e.Message);
+            return;
         }
+
     }
 
     [Command]

@@ -21,10 +21,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 931
-  m_MinSize: {x: 709, y: 500}
-  m_MaxSize: {x: 18004, y: 14021}
+  m_MinSize: {x: 713, y: 563}
+  m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 14454
+  controlID: 15543
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -45,7 +45,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 0
+    x: -1
     y: 390
     width: 1075
     height: 379
@@ -121,10 +121,10 @@ MonoBehaviour:
     y: 0
     width: 1077
     height: 931
-  m_MinSize: {x: 200, y: 500}
-  m_MaxSize: {x: 4000, y: 12000}
+  m_MinSize: {x: 202, y: 563}
+  m_MaxSize: {x: 4002, y: 12063}
   vertical: 1
-  controlID: 14455
+  controlID: 15544
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -170,7 +170,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 0
+    x: -1
     y: 94
     width: 1075
     height: 275
@@ -247,8 +247,8 @@ MonoBehaviour:
     y: 296
     width: 1077
     height: 400
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 2}
   m_Panes:
   - {fileID: 2}
@@ -272,8 +272,8 @@ MonoBehaviour:
     y: 696
     width: 1077
     height: 235
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 102, y: 121}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 8}
   m_Panes:
   - {fileID: 8}
@@ -299,7 +299,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 0
+    x: -1
     y: 790
     width: 1075
     height: 214
@@ -324,10 +324,10 @@ MonoBehaviour:
     y: 0
     width: 267
     height: 931
-  m_MinSize: {x: 234, y: 471}
-  m_MaxSize: {x: 10004, y: 14021}
+  m_MinSize: {x: 234, y: 492}
+  m_MaxSize: {x: 10004, y: 14042}
   vertical: 1
-  controlID: 14584
+  controlID: 15470
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -346,8 +346,8 @@ MonoBehaviour:
     y: 0
     width: 267
     height: 421
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 204, y: 221}
+  m_MaxSize: {x: 4004, y: 4021}
   m_ActualView: {fileID: 11}
   m_Panes:
   - {fileID: 11}
@@ -373,7 +373,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1079
+    x: 1078
     y: 94
     width: 263
     height: 400
@@ -382,7 +382,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 5a2decffe02decff0a2fecff4433ecffc433ecffee34ecff2455ecffa655ecffd056ecff969becff1e9cecff4e9decffb0efecff30f0ecff58f1ecffbef7ecff3af8ecff62f9ecff20ffecffacffecffd400edff2687edffa487edffcc88edff7c99edfff299edff309bedffdad4edff56d5edff7ed6edff14e2edff8ae2edffb2e3edffd8efedff4ef0edff76f1edff8cf5edff02f6edff2af7edff3827eeffb627eeffde28eeff72b7eeffeeb7eeff16b9eeff5ad6efffd4d6effffcd7efffa8e9efff22eaefff60ebefff4262f0ffc262f0ffea63f0ffea89f0ff708af0ff988bf0ff5cbcf0ffd8bcf0ff16bef0ffb80bf1ffc80bf1ff103ef1ff903ef1ffb63ff1ff9641f1ff1042f1ff4a43f1fffa5df1ff745ef1ffae5ff1ffe674f1ff6075f1ff9a76f1ff08a9f1ff8aa9f1ffb0aaf1ffb8acf1ff36adf1ff5caef1ffb8ecf1ff38edf1ff5eeef1ffe409f2ff640af2ff8a0bf2ff0e37f2ff8c37f2ffc638f2ff7e4ef2fff84ef2ff1e50f2ff9671f2ff1c72f2ff4273f2fffa81f2ff7482f2ff9a83f2ff028ff3ff7c8ff3ffb690f3ff5ca2f3ffdca2f3ff02a4f3ff5aadf3ffdaadf3ff00aff3ff26b6f3ffa0b6f3ffc6b7f3ffaac3f3ff2ac4f3ff54c5f3ff8adcf4ff04ddf4ff3cdef4ff48e2f6ff5ee2f6ffd20af8ffdc0af8ffec0af8ff9a14f8ff9e14f8ffac14f8ff5cf8f8ff7c33faffbc33faff3c61faff4261faff4074faffe803fbff0ab1fbff80b1fbffa2b2fbff5eedfffff0fbffff00000000d42b000082370000aa370000b237000048480000fa50000024540000f0590000505d0000
+    m_ExpandedIDs: 6609ecffdc09ecff060becffd015ecff4c16ecff7617ecff461fecffbc1fecfffe20ecff5a2decffe02decff0a2fecff4433ecffc433ecffee34ecff2455ecffa655ecffd056ecff969becff1e9cecff4e9decffb0efecff30f0ecff58f1ecffbef7ecff3af8ecff62f9ecff20ffecffacffecffd400edff2687edffa487edffcc88edff7c99edfff299edff309bedffdad4edff56d5edff7ed6edff14e2edff8ae2edffb2e3edffd8efedff4ef0edff76f1edff8cf5edff02f6edff2af7edff3827eeffb627eeffde28eeff72b7eeffeeb7eeff16b9eeff5ad6efffd4d6effffcd7efffa8e9efff22eaefff60ebefff4262f0ffc262f0ffea63f0ffea89f0ff708af0ff988bf0ff5cbcf0ffd8bcf0ff16bef0ffb80bf1ffc80bf1ff103ef1ff903ef1ffb63ff1ff9641f1ff1042f1ff4a43f1fffa5df1ff745ef1ffae5ff1ffe674f1ff6075f1ff9a76f1ff08a9f1ff8aa9f1ffb0aaf1ffb8acf1ff36adf1ff5caef1ffb8ecf1ff38edf1ff5eeef1ffe409f2ff640af2ff8a0bf2ff0e37f2ff8c37f2ffc638f2ff7e4ef2fff84ef2ff1e50f2ff9671f2ff1c72f2ff4273f2fffa81f2ff7482f2ff9a83f2ff028ff3ff7c8ff3ffb690f3ff5ca2f3ffdca2f3ff02a4f3ff5aadf3ffdaadf3ff00aff3ff26b6f3ffa0b6f3ffc6b7f3ffaac3f3ff2ac4f3ff54c5f3ff8adcf4ff04ddf4ff3cdef4ff48e2f6ff5ee2f6ffd20af8ffdc0af8ffec0af8ff9a14f8ff9e14f8ffac14f8ff5cf8f8ff7c33faffbc33faff3c61faff4261faff4074faffe803fbff0ab1fbff80b1fbffa2b2fbff5eedfffff0fbffff00000000d42b000082370000aa370000b237000048480000fa50000024540000f0590000505d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -424,8 +424,8 @@ MonoBehaviour:
     y: 421
     width: 267
     height: 510
-  m_MinSize: {x: 230, y: 250}
-  m_MaxSize: {x: 10000, y: 10000}
+  m_MinSize: {x: 234, y: 271}
+  m_MaxSize: {x: 10004, y: 10021}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -451,7 +451,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1079
+    x: 1078
     y: 515
     width: 263
     height: 489
@@ -468,19 +468,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scripts
+    - Assets/Prefabs
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Prefabs
   m_LastFoldersGridSize: 16
   m_LastProjectPath: /Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 882a0000
-    m_LastClickedID: 10888
+    m_SelectedIDs: 002d0000
+    m_LastClickedID: 11520
     m_ExpandedIDs: 000000002a290000ffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -582,8 +582,8 @@ MonoBehaviour:
     y: 0
     width: 576
     height: 931
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 277, y: 71}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -609,7 +609,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1346
+    x: 1345
     y: 94
     width: 574
     height: 910
