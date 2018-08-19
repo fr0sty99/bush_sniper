@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using System;
 
+[RequireComponent(typeof(Player))]
 public class PlayerSetup : NetworkBehaviour
 {
     // This class is responsible for dis- and enabling components from other players in multiplayer.
@@ -35,21 +37,30 @@ public class PlayerSetup : NetworkBehaviour
             followCamera.GetComponent<FollowCamera>().setTarget(transform);
         }
 
-        RegisterPlayer();
     }
 
-    void RegisterPlayer() {
-        string _ID = "Player " + GetComponent<NetworkIdentity>().netId;
-        transform.name = _ID;
-    }
+    // this method belongs to the NetworkBehaviour class
+	public override void OnStartClient()
+	{
+        base.OnStartClient();
 
-    void onDisable() // gets also called when the object is destroyed
+        string _netId = GetComponent<NetworkIdentity>().netId.ToString();
+        Player _player = GetComponent<Player>(); // Player is required in this class
+
+        GameManager.RegisterPlayer(_netId, _player);
+	}
+
+	void onDisable() // gets also called when the object is destroyed
     {
         // switch from followCamera to SceneCamera when playerObject is destroyed
         if(sceneCamera != null && followCamera != null) {
             sceneCamera.gameObject.SetActive(true);
             followCamera.gameObject.SetActive(false);
         }
+
+        // unregister player
+
+        GameManager.UnregisterPlayer(transform.name);
     }
 
     void AssignRemoteLayer() {

@@ -38,14 +38,17 @@ public class PlayerShoot : NetworkBehaviour
         if (_hit.collider.tag == PLAYER_TAG) 
         {
             // tell server that we hit that player with its netID in its name
-            CmdPlayerShot(_hit.collider.name, transform.name);
+            CmdPlayerShot(_hit.collider.name, transform.name, weapon.damage);
         }
     }
 
     [Command]
-    void CmdPlayerShot(string _ID, string _ID2)
+    void CmdPlayerShot(string _deadPlayerID, string _playerId, int damage)
     {
-        Debug.Log(_ID + " has been shot from " + _ID2);
+        Debug.Log(_deadPlayerID + " has been shot from " + _playerId + " with a damage of " + damage);
+
+        Player _player = GameManager.GetPlayer(_playerId);
+        _player.TakeDamage(damage);
     }
 
 }
