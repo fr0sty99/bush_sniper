@@ -11,18 +11,20 @@ public class PlayerSetup : NetworkBehaviour
     Camera followCamera;
     Camera sceneCamera;
 
+    [SerializeField]
+    string remoteLayerName = "RemotePlayer";
+
     void Start()
     {
         // if this object is not the clients player, disable the choosen components
         if (!isLocalPlayer) 
         {
-            for (int i = 0; i < componentsToDisable.Length; i++)
-            {
-                componentsToDisable[i].enabled = false;
-            }
+            DisableComponents();
+            AssignRemoteLayer();
         }
         else
-        {
+        {   // this object is the local player
+            
             // change from MainCamera to followCamera
             sceneCamera = Camera.main;
             if(sceneCamera != null) {
@@ -43,4 +45,14 @@ public class PlayerSetup : NetworkBehaviour
         }
     }
 
+    void AssignRemoteLayer() {
+        gameObject.layer = LayerMask.NameToLayer(remoteLayerName);
+    }
+
+    void DisableComponents() {
+        for (int i = 0; i < componentsToDisable.Length; i++)
+        {
+            componentsToDisable[i].enabled = false;
+        }
+    }
 }
