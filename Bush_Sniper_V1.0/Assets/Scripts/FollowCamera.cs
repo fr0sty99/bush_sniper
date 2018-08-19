@@ -21,7 +21,7 @@ public class FollowCamera : MonoBehaviour
         this.target = _target;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         // if the target is set, follow it in a given cameraDistance
         if (target != null)

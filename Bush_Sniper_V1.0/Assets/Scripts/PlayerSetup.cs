@@ -29,11 +29,11 @@ public class PlayerSetup : NetworkBehaviour
                 sceneCamera.gameObject.SetActive(false);
             }
 
-            // give the followCamera it's target
+            // give the followCamera its target
             followCamera.GetComponent<FollowCamera>().setTarget(transform);
         }
     }
-    s
+
     void onDisable() // gets also called when the object is destroyed
     {
         // switch from followCamera to SceneCamera when playerObject is destroyed
