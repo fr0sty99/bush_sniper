@@ -34,6 +34,13 @@ public class PlayerSetup : NetworkBehaviour
             // give the followCamera its target
             followCamera.GetComponent<FollowCamera>().setTarget(transform);
         }
+
+        RegisterPlayer();
+    }
+
+    void RegisterPlayer() {
+        string _ID = "Player " + GetComponent<NetworkIdentity>().netId;
+        transform.name = _ID;
     }
 
     void onDisable() // gets also called when the object is destroyed

@@ -3,6 +3,7 @@ using UnityEngine.Networking;
 
 public class PlayerShoot : NetworkBehaviour
 {
+    private const string PLAYER_TAG = "Player";
 
     public PlayerWeapon weapon;
     [SerializeField]
@@ -21,6 +22,7 @@ public class PlayerShoot : NetworkBehaviour
         }
     }
 
+    [Client]
     private void Shoot()
     {
         // transform.right means forward in our case. the red axis is the axis which our player is facing
@@ -28,14 +30,22 @@ public class PlayerShoot : NetworkBehaviour
         Vector2 _startPos = transform.position;
         Vector2 _destPos = transform.right * weapon.range;
 
+        // Raycast from _startPos to _destPos with the length of weapon.range, we only hit objects in the Layermask "mask"
         RaycastHit2D _hit = Physics2D.Raycast(_startPos, _destPos, weapon.range, mask);
         Debug.DrawRay(_startPos, _destPos, Color.red);
 
-        if (_hit)
+        // if we hit a player
+        if (_hit.collider.tag == PLAYER_TAG) 
         {
-            // we hit something
-            Debug.Log("Yout hit: " + _hit.collider.name);
+            // tell server that we hit that player with its netID in its name
+            CmdPlayerShot(_hit.collider.name, transform.name);
         }
+    }
+
+    [Command]
+    void CmdPlayerShot(string _ID, string _ID2)
+    {
+        Debug.Log(_ID + " has been shot from " + _ID2);
     }
 
 }
