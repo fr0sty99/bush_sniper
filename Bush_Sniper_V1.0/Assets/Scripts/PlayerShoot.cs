@@ -40,7 +40,7 @@ public class PlayerShoot : NetworkBehaviour
             if (_hit.collider.tag == PLAYER_TAG)
             {
                 // tell server that we hit that player with its netID in its name
-                CmdPlayerShot(_hit.collider.name, transform.name, weapon.damage);
+                CmdPlayerShoot(_hit.collider.name, transform.name, weapon.damage);
             }
         } catch(Exception e) {
             Debug.Log("Catched Error in PlayerShoot.Shoot: " + e.Message);
@@ -50,12 +50,12 @@ public class PlayerShoot : NetworkBehaviour
     }
 
     [Command]
-    void CmdPlayerShot(string _deadPlayerID, string _playerId, int damage)
+    void CmdPlayerShoot(string _damagedPlayerId, string _playerId, int damage)
     {
-        Debug.Log(_deadPlayerID + " has been shot from " + _playerId + " with a damage of " + damage);
+        Debug.Log(_damagedPlayerId + " has been shot from " + _playerId + " with a damage of " + damage);
 
-        Player _player = GameManager.GetPlayer(_playerId);
-        _player.TakeDamage(damage);
+        Player _player = GameManager.GetPlayer(_damagedPlayerId);
+        _player.RpcTakeDamage(damage);
     }
 
 }

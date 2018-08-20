@@ -37,6 +37,8 @@ public class PlayerSetup : NetworkBehaviour
             followCamera.GetComponent<FollowCamera>().setTarget(transform);
         }
 
+        GetComponent<Player>().Setup();
+
     }
 
     // this method belongs to the NetworkBehaviour class

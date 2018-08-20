@@ -1,17 +1,21 @@
 ﻿<Properties StartupConfiguration="{CF217019-7238-70E9-0275-E06C585B0FFA}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerShoot.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MatchSettings.cs">
     <Files>
-      <File FileName="Assets/Scripts/Player.cs" Line="17" Column="5" />
-      <File FileName="Assets/Scripts/PlayerSetup.cs" Line="34" Column="14" />
-      <File FileName="Assets/Scripts/GameManager.cs" Line="5" Column="2" />
-      <File FileName="Assets/Scripts/PlayerShoot.cs" Line="36" Column="13" />
+      <File FileName="Assets/Scripts/Player.cs" Line="85" Column="45" />
+      <File FileName="Assets/Scripts/PlayerShoot.cs" Line="58" Column="39" />
+      <File FileName="Assets/Scripts/PlayerSetup.cs" Line="40" Column="40" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="20" Column="6" />
       <File FileName="Assets/Scripts/PlayerWeapon.cs" Line="9" Column="5" />
+      <File FileName="Assets/Scripts/MatchSettings.cs" Line="4" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0/Assets/Scripts/PlayerShoot.cs" relfile="Assets/Scripts/PlayerShoot.cs" line="11" column="1" />
+      <Breakpoint enabled="false" file="/Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0/Assets/Scripts/PlayerSetup.cs" relfile="Assets/Scripts/PlayerSetup.cs" line="13" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
