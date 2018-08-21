@@ -149,6 +149,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 6918fe225ddd6f6b30346460ec1d11a5 Assembly-CSharp.dll:.PlayerSetup
 013dc15073f1a72258254a3687713541 Assembly-CSharp.dll:.FollowCamera
-019192a1524ea86bf84f5b1bb1d70b37 Assembly-CSharp.dll:.PlayerShoot
+a41c8a6e271d44ff8932dc55e8774654 Assembly-CSharp.dll:.PlayerShoot
 91cfc6404879c1c06d2b980770182d5e Assembly-CSharp.dll:.Player
 ef8eea129c1edaabd4edc7e98c9a7f75 Assembly-CSharp.dll:.GameManager
+555bdd7d614f83dd1d0a79ae62f44e72 Assembly-CSharp.dll:.MoveTrail

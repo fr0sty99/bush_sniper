@@ -6,6 +6,7 @@ public class PlayerShoot : NetworkBehaviour
 {
     private const string PLAYER_TAG = "Player";
 
+    [SerializeField]
     public PlayerWeapon weapon;
     private float timeToFire = 0;
     [SerializeField]
@@ -19,19 +20,22 @@ public class PlayerShoot : NetworkBehaviour
     private void Update()
     {
         // if firerate is zero
-        if(Math.Abs(weapon.fireRate) < float.Epsilon) {
+        if (Math.Abs(weapon.fireRate) < float.Epsilon)
+        {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 Shoot();
             }
-        } else { 
+        }
+        else
+        {
             if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > timeToFire)
             {
                 timeToFire = Time.time + 1 / weapon.fireRate;
                 Shoot();
             }
         }
-       
+
     }
 
     [Client]
@@ -40,26 +44,39 @@ public class PlayerShoot : NetworkBehaviour
         // transform.right means forward in our case. the red axis is the axis which our player is facing
 
 
-        Vector2 _startPos = weapon.firePoint.transform.position;
+        Vector2 _startPos = weapon.firePoint.position;
         Vector2 _start = transform.position;
         Vector2 _destPos = transform.right * weapon.range;
 
         // Raycast from _startPos to _destPos with the length of weapon.range, we only hit objects in the Layermask "mask"
         RaycastHit2D _hit = Physics2D.Raycast(_startPos, _destPos, weapon.range, mask);
+
+        RpcShootEffect();
+
         Debug.DrawRay(_startPos, _destPos, Color.cyan);
 
         // if we hit a player
-        try{
+        try
+        {
             if (_hit.collider.tag == PLAYER_TAG)
             {
                 // tell server that we hit that player with its netID in its n  ame
                 CmdPlayerShoot(_hit.collider.name, transform.name, weapon.damage);
             }
-        } catch(Exception e) {
-            Debug.Log("Catched Error in PlayerShoot.Shoot: " + e.Message);
+        }
+        catch (Exception e)
+        {
+            // didnt hit any player.
+            // TODO: rewrite this hacked part
             return;
         }
 
+    }
+
+    [ClientRpc] // this gets called on every client
+    void RpcShootEffect()
+    {
+        Instantiate(weapon.bulletTrailPrefab, weapon.firePoint.position, weapon.firePoint.rotation);
     }
 
     [Command]
