@@ -607,7 +607,7 @@ MonoBehaviour:
     type: 2}
   muzzleFlashPrefab: {fileID: 1515557695330824, guid: 4eedb682da7a343deb82d6492ebec189,
     type: 2}
-  muzzleLifeTime: 0.02
+  muzzleLifeTime: 5
   disableOnDeath:
   - {fileID: 114368252787951704}
   - {fileID: 114165054734208760}
