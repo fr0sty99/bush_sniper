@@ -15,8 +15,16 @@ public class Player : NetworkBehaviour {
     private int maxHealth = 100;
 
     [SerializeField]
-    private GameObject bulletTrail;
+    private GameObject bulletTrailPrefab;
 
+    [SerializeField]
+    private GameObject muzzleFlashPrefab;
+
+    // TODO: refactor this hack
+    private float muzzleRotationOffset = 180f; // needed to flip the image
+
+    [SerializeField]
+    private float muzzleLifeTime = 0.02f;
     // TODO: implement player skin
 
 
@@ -51,14 +59,25 @@ public class Player : NetworkBehaviour {
 	//}
 
     [ClientRpc] // this method gets executed on every client if its called
-    public void RpcShowBulletTrail(Vector2 _pos, Quaternion _rot) {
+    public void RpcSpawnShootEffect(Vector2 _pos, Quaternion _rot) {
         showBulletTrail(_pos, _rot);
+        showMuzzle(_pos, _rot);
+    }
+
+    private void showMuzzle(Vector2 _pos, Quaternion _rot) {
+        Vector3 muzzlePos = new Vector3(_pos.x, _pos.y, -1f);
+        GameObject muzzleFlashObject = Instantiate(muzzleFlashPrefab, muzzlePos, _rot);
+        muzzleFlashObject.transform.Rotate(0, 0, muzzleRotationOffset);
+        //muzzleFlashObject.transform.parent = GetComponent<PlayerShoot>().weapon.firePoint;
+        //float size = Random.Range(0.03f, 0.07f);
+        //muzzleFlashObject.transform.localScale = new Vector2(size, size);
+        Debug.Log("muzzle: " + muzzleFlashObject);
+        Destroy(muzzleFlashObject, muzzleLifeTime);
     }
 
     private void showBulletTrail(Vector2 _pos, Quaternion _rot) {
-        GameObject gameObject =  Instantiate(bulletTrail, _pos, _rot);
-        Destroy(gameObject, 1);
-
+        // spawn a bulletTrail and Destroy it after 1 second
+        Destroy(Instantiate(bulletTrailPrefab, _pos, _rot), 1); 
     }
 
     [ClientRpc] // this method gets executed on every client if its called

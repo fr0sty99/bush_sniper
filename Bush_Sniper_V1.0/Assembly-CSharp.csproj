@@ -69,6 +69,11 @@
     <Compile Include="Assets\Scripts\PlayerSetup.cs" />
     <Compile Include="Assets\Scripts\PlayerShoot.cs" />
     <Compile Include="Assets\Scripts\PlayerWeapon.cs" />
+    <Compile Include="Assets\Store Assets\Fx Explosion Pack\Script\csDemoScenceControl.cs" />
+    <Compile Include="Assets\Store Assets\Fx Explosion Pack\Script\csLightControl.cs" />
+    <Compile Include="Assets\Store Assets\Fx Explosion Pack\Script\csMouseOrbit.cs" />
+    <Compile Include="Assets\Store Assets\Fx Explosion Pack\Script\DestroyEffect.cs" />
+    <Compile Include="Assets\Store Assets\sprite muzzle flashes\AnimatedTexture.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

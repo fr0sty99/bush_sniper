@@ -77,7 +77,7 @@ public class PlayerShoot : NetworkBehaviour
     void CmdSpawnShootEffect(string _playerId, Vector2 pos, Quaternion rot)
     {
         Player _player = GameManager.GetPlayer(_playerId);
-        _player.RpcShowBulletTrail(pos, rot);
+        _player.RpcSpawnShootEffect(pos, rot);
     }
 
     [Command]

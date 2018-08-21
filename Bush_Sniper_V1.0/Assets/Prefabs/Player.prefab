@@ -460,7 +460,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1267236616899620}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -603,8 +603,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  bulletTrail: {fileID: 1495878682146406, guid: 319476287eaea459c9495773cfba3f5b,
+  bulletTrailPrefab: {fileID: 1495878682146406, guid: 319476287eaea459c9495773cfba3f5b,
     type: 2}
+  muzzleFlashPrefab: {fileID: 1515557695330824, guid: 4eedb682da7a343deb82d6492ebec189,
+    type: 2}
+  muzzleLifeTime: 0.02
   disableOnDeath:
   - {fileID: 114368252787951704}
   - {fileID: 114165054734208760}

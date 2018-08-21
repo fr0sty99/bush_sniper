@@ -150,6 +150,11 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 6918fe225ddd6f6b30346460ec1d11a5 Assembly-CSharp.dll:.PlayerSetup
 013dc15073f1a72258254a3687713541 Assembly-CSharp.dll:.FollowCamera
 5addccbff572d8bd7a91effaaae9dbb7 Assembly-CSharp.dll:.PlayerShoot
-d83c2084577725ecf7e9be254d7c3186 Assembly-CSharp.dll:.Player
+3f9712a8e810247a5f55b72a3201f815 Assembly-CSharp.dll:.Player
 ef8eea129c1edaabd4edc7e98c9a7f75 Assembly-CSharp.dll:.GameManager
 555bdd7d614f83dd1d0a79ae62f44e72 Assembly-CSharp.dll:.MoveTrail
+1345ad4bbe5556129dab694e174d94c9 Assembly-CSharp.dll:.AnimatedTexture
+062e3a25707f13b7f9ef5cd7d42eef0c Assembly-CSharp.dll:.csDemoScenceControl
+4aee8e1b04784ac27bc2fda5e0169d0d Assembly-CSharp.dll:.csLightControl
+3a57f36e040b0eb9a134da5c8deaba96 Assembly-CSharp.dll:.csMouseOrbit
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DestroyEffect

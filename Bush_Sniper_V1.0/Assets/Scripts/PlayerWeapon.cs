@@ -11,5 +11,4 @@ public class PlayerWeapon {
     public float range = 10f;
     public Transform firePoint;
 
-
 }
