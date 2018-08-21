@@ -14,6 +14,12 @@ public class Player : NetworkBehaviour {
     [SerializeField]
     private int maxHealth = 100;
 
+    [SerializeField]
+    private GameObject bulletTrail;
+
+    // TODO: implement player skin
+
+
     [SyncVar] // this prefix means, when the value of this variable changes, it will be "pushed out" to all other clients
     private int currentHealt;
 
@@ -44,7 +50,18 @@ public class Player : NetworkBehaviour {
  //       }
 	//}
 
-	[ClientRpc] // this method gets executed on every client if its called
+    [ClientRpc] // this method gets executed on every client if its called
+    public void RpcShowBulletTrail(Vector2 _pos, Quaternion _rot) {
+        showBulletTrail(_pos, _rot);
+    }
+
+    private void showBulletTrail(Vector2 _pos, Quaternion _rot) {
+        GameObject gameObject =  Instantiate(bulletTrail, _pos, _rot);
+        Destroy(gameObject, 1);
+
+    }
+
+    [ClientRpc] // this method gets executed on every client if its called
     public void RpcTakeDamage(int _amount) 
     {
         if (isDead) {
@@ -61,6 +78,7 @@ public class Player : NetworkBehaviour {
     }
 
     private void Die() {
+// TODO: die animation ///////////////////////////////
         isDead = true;
 
         for (int i = 0; i < disableOnDeath.Length; i++)

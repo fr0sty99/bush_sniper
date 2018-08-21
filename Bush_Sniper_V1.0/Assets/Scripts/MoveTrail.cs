@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MoveTrail : MonoBehaviour {
 
@@ -10,4 +8,5 @@ public class MoveTrail : MonoBehaviour {
         transform.Translate(Vector2.right * Time.deltaTime * moveSpeed);
         Destroy(this, 1);
 	}
+
 }

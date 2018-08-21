@@ -1,16 +1,9 @@
 ﻿<Properties StartupConfiguration="{CF217019-7238-70E9-0275-E06C585B0FFA}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/MoveTrail.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player.cs">
     <Files>
-      <File FileName="Assets/Scripts/Player.cs" Line="32" Column="23" />
-      <File FileName="Assets/Scripts/PlayerShoot.cs" Line="9" Column="21" />
-      <File FileName="Assets/Scripts/PlayerSetup.cs" Line="47" Column="30" />
-      <File FileName="Assets/Scripts/GameManager.cs" Line="17" Column="29" />
-      <File FileName="Assets/Scripts/PlayerWeapon.cs" Line="15" Column="31" />
-      <File FileName="Assets/Scripts/MatchSettings.cs" Line="1" Column="22" />
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="67" Column="63" />
-      <File FileName="Assets/Scripts/FollowCamera.cs" Line="13" Column="17" />
-      <File FileName="Assets/MoveTrail.cs" Line="14" Column="3" />
+      <File FileName="Assets/Scripts/Player.cs" Line="59" Column="10" />
+      <File FileName="Assets/Scripts/MoveTrail.cs" Line="9" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

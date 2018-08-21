@@ -51,7 +51,7 @@ public class PlayerShoot : NetworkBehaviour
         // Raycast from _startPos to _destPos with the length of weapon.range, we only hit objects in the Layermask "mask"
         RaycastHit2D _hit = Physics2D.Raycast(_startPos, _destPos, weapon.range, mask);
 
-        RpcShootEffect();
+        CmdSpawnShootEffect(transform.name, weapon.firePoint.position, weapon.firePoint.rotation);
 
         Debug.DrawRay(_startPos, _destPos, Color.cyan);
 
@@ -73,10 +73,11 @@ public class PlayerShoot : NetworkBehaviour
 
     }
 
-    [ClientRpc] // this gets called on every client
-    void RpcShootEffect()
+    [Command] // this gets called on every client
+    void CmdSpawnShootEffect(string _playerId, Vector2 pos, Quaternion rot)
     {
-        Instantiate(weapon.bulletTrailPrefab, weapon.firePoint.position, weapon.firePoint.rotation);
+        Player _player = GameManager.GetPlayer(_playerId);
+        _player.RpcShowBulletTrail(pos, rot);
     }
 
     [Command]

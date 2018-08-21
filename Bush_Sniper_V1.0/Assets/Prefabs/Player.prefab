@@ -266,7 +266,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1267236616899620}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.198912, y: 2.2219357, z: -2.23}
+  m_LocalPosition: {x: 44.272312, y: -5.155901, z: -2.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4821918091741946}
@@ -512,8 +512,6 @@ MonoBehaviour:
     damage: 40
     range: 10
     firePoint: {fileID: 4532562715716682}
-    bulletTrailPrefab: {fileID: 4443356198970382, guid: 319476287eaea459c9495773cfba3f5b,
-      type: 2}
   mask:
     serializedVersion: 2
     m_Bits: 1024
@@ -581,7 +579,7 @@ MonoBehaviour:
   m_VelocityThreshold: 0.0001
   m_SnapThreshold: 5
   m_InterpolateRotation: 10
-  m_InterpolateMovement: 1
+  m_InterpolateMovement: 0
 --- !u!114 &114710381266482930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -605,6 +603,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  bulletTrail: {fileID: 1495878682146406, guid: 319476287eaea459c9495773cfba3f5b,
+    type: 2}
   disableOnDeath:
   - {fileID: 114368252787951704}
   - {fileID: 114165054734208760}
