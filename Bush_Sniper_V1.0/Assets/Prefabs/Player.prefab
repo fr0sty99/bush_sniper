@@ -607,7 +607,24 @@ MonoBehaviour:
     type: 2}
   muzzleFlashPrefab: {fileID: 1515557695330824, guid: 4eedb682da7a343deb82d6492ebec189,
     type: 2}
-  muzzleLifeTime: 5
+  islandPrefab: {fileID: 1177362194093374, guid: 260a6546753ef47a6a6ee0b24776e628,
+    type: 2}
+  bridgePrefab: {fileID: 1713082393756876, guid: 8eaae8d5db705444383a9bde3979d4b7,
+    type: 2}
+  muzzleLifeTime: 0.02
+  mapSize: 3
+  islandSpawnOffset: 24
+  currentIsland:
+    bridges: 
+    visited: 0
+    x: 0
+    y: 0
+  startIsland:
+    bridges: 
+    visited: 0
+    x: 0
+    y: 0
+  bridgeSpawnOffset: 12
   disableOnDeath:
   - {fileID: 114368252787951704}
   - {fileID: 114165054734208760}
