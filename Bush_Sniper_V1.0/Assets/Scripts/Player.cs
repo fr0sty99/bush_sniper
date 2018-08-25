@@ -36,7 +36,7 @@ public class Player : NetworkBehaviour
     private float muzzleLifeTime = 0.02f;
 
     // mapGenerator variables
-    public int mapSize = 3;
+    public int mapSize = 5;
     public float islandSpawnOffset = 24f;
     public Island currentIsland;
     public Island startIsland;
@@ -98,9 +98,8 @@ public class Player : NetworkBehaviour
             }
 
             // 1. Start at a random island
-            int random = Random.Range(0, islands.Length + islands[0].Length);
-            int randomX = random / mapSize;
-            int randomY = random % mapSize;
+            int randomX = Random.Range(0, 3);
+            int randomY = Random.Range(0, 3);
 
             currentIsland = islands[randomX][randomY];
 
@@ -162,24 +161,30 @@ public class Player : NetworkBehaviour
         }
 
         // get a list of the current islands neighbors
-        findIslandNeighbors(currentIsland);
+        findUnvisitedIslandNeighbors(currentIsland);
+
+        object[] shuffledArray = currentIsland.neighbors.ToArray();
+        for (int i = 0; i < currentIsland.neighbors.Count; i++)
+        {
+            int rand = Random.Range(0, currentIsland.neighbors.Count);
+            object temp = shuffledArray[rand];
+            shuffledArray[rand] = shuffledArray[i];
+            shuffledArray[i] = temp;
+        }
 
         // foreach neighbor
-        foreach(Island _neighbor in currentIsland.neighbors) {
-            if (!_neighbor.visited)
-            {
-                createBridgeBetween(currentIsland, _neighbor);
-            }
-
-            recursiveDFS(_neighbor);
+        foreach(Island _unvisitedNeighbor in shuffledArray) {
+            createBridgeBetween(currentIsland, _unvisitedNeighbor);
+            recursiveDFS(_unvisitedNeighbor);
         }
+
     }
 
     public void createBridgeBetween(Island currentIsland, Island neighbor)
     {
         // We create the bridge only on one Island, because we would render it twice this way
         // neighbor on top of currentIsland
-        if (neighbor.y + 1 == currentIsland.y && currentIsland.x == neighbor.x)
+        if (neighbor.y - 1 == currentIsland.y && currentIsland.x == neighbor.x)
         {
             currentIsland.setTopBridge(true);
             neighbor.setBottomBridge(true);
@@ -193,7 +198,7 @@ public class Player : NetworkBehaviour
         }
 
         // neighbor is on the bottom of currentIsland
-        if (neighbor.y - 1 == currentIsland.y && currentIsland.x == neighbor.x)
+        if (neighbor.y + 1 == currentIsland.y && currentIsland.x == neighbor.x)
         {
             currentIsland.setBottomBridge(true);
             neighbor.setTopBridge(true);
@@ -207,27 +212,47 @@ public class Player : NetworkBehaviour
         }
     }
 
-    public void findIslandNeighbors(Island island)
+    public void findUnvisitedIslandNeighbors(Island island)
     {
         // top
-        if (island.y + 1 < mapSize-1)
+        if (island.y + 1 < mapSize)
         {
+            if(!islands[island.x][island.y + 1].visited) {
+                
+            }
             island.neighbors.Add(islands[island.x][island.y + 1]);
         }
         // right
-        if (island.x + 1 < mapSize-1)
+        if (island.x + 1 < mapSize)
         {
+            if (!islands[island.x + 1][island.y].visited)
+            {
+
+            }
             island.neighbors.Add(islands[island.x + 1][island.y]);
         }
         // bottom
         if (island.y - 1 >= 0)
         {
+            if (!islands[island.x][island.y - 1].visited)
+            {
+
+            }
             island.neighbors.Add(islands[island.x][island.y - 1]);
         }
         // left
         if (island.x - 1 >= 0)
         {
+            if (!islands[island.x - 1][island.y].visited)
+            {
+
+            }
             island.neighbors.Add(islands[island.x - 1][island.y]);
+        }
+
+        Debug.Log("Island x,y: " + island.x + "," + island.y + " | has neighbors: ");
+        for (int i = 0; i < island.neighbors.Count; i++) {
+            Debug.Log("Neighbor #" + i + ": " + ((Island)island.neighbors[i]).x + " , " + ((Island)island.neighbors[i]).y);
         }
     }
 
@@ -264,7 +289,7 @@ public class Player : NetworkBehaviour
     private void showBulletTrail(Vector2 _pos, Quaternion _rot)
     {
         // spawn a bulletTrail and Destroy it after 1 second
-        Destroy(Instantiate(bulletTrailPrefab, _pos, _rot), 1);
+        Destroy(Instantiate(bulletTrailPrefab, _pos, _rot), 3);
     }
 
     [ClientRpc] // this method gets executed on every client if its called

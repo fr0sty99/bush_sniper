@@ -557,7 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c28ac901f3fc04634816b32a01f10086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 20
   followCam: {fileID: 20664979478997824}
 --- !u!114 &114686227438824734
 MonoBehaviour:
@@ -612,7 +612,7 @@ MonoBehaviour:
   bridgePrefab: {fileID: 1713082393756876, guid: 8eaae8d5db705444383a9bde3979d4b7,
     type: 2}
   muzzleLifeTime: 0.02
-  mapSize: 3
+  mapSize: 4
   islandSpawnOffset: 24
   currentIsland:
     bridges: 
