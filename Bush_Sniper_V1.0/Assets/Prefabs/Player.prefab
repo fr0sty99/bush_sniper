@@ -103,9 +103,8 @@ GameObject:
   - component: {fileID: 114837518833848496}
   - component: {fileID: 114686227438824734}
   - component: {fileID: 114710381266482930}
-  - component: {fileID: 114368252787951704}
   - component: {fileID: 114248352161615322}
-  - component: {fileID: 114165054734208760}
+  - component: {fileID: 114206330071962586}
   - component: {fileID: 114742945809721044}
   m_Layer: 9
   m_Name: Player
@@ -266,7 +265,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1267236616899620}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 44.272312, y: -5.155901, z: -2.23}
+  m_LocalPosition: {x: -21.873878, y: -0.25598907, z: -2.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4821918091741946}
@@ -460,7 +459,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1267236616899620}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -472,7 +471,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &58707746652574806
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -495,26 +494,6 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1798812474810558}
   m_Enabled: 1
---- !u!114 &114165054734208760
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1267236616899620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d26f8a60512f4db5802236388c660c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapon:
-    name: Pistol
-    fireRate: 6
-    damage: 40
-    range: 10
-    firePoint: {fileID: 4532562715716682}
-  mask:
-    serializedVersion: 2
-    m_Bits: 1024
 --- !u!114 &114193555193736298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -527,6 +506,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraDistance: 10
+--- !u!114 &114206330071962586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1267236616899620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 044b7fe08e64e4731ac6d0877493a923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapSize: 4
+  islandSpawnSpacing: 24
+  bridgeSpawnSpacing: 8
+  bridgeColliderSpacing: 3
+  bridgePrefab: {fileID: 1713082393756876, guid: 8eaae8d5db705444383a9bde3979d4b7,
+    type: 2}
+  islandPrefab: {fileID: 1177362194093374, guid: 260a6546753ef47a6a6ee0b24776e628,
+    type: 2}
+  bridgeCollider: {fileID: 1943652948214474, guid: e24f860539e154d8597a0fa756a75396,
+    type: 2}
+  islandCollider: {fileID: 1062230333911006, guid: 150b37de568c74e64ae39e4f9e0be3eb,
+    type: 2}
 --- !u!114 &114248352161615322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -539,26 +541,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   componentsToDisable:
+  - {fileID: 114742945809721044}
   - {fileID: 114710381266482930}
-  - {fileID: 114368252787951704}
   - {fileID: 20664979478997824}
   - {fileID: 81905290609365164}
-  - {fileID: 114165054734208760}
+  - {fileID: 114206330071962586}
   followCamera: {fileID: 20664979478997824}
   remoteLayerName: RemotePlayer
---- !u!114 &114368252787951704
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1267236616899620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c28ac901f3fc04634816b32a01f10086, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 20
-  followCam: {fileID: 20664979478997824}
 --- !u!114 &114686227438824734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -602,32 +591,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26bf907eb9e6840f29c618d68894d254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerID: 
+  canSendNetworkMovement: 0
+  speed: 10
+  networkSendRate: 5
+  timeBetweenMovementStart: 0
+  timeBetweenMovementEnd: 0
+  motor: {fileID: 114710381266482930}
+  weapon:
+    name: a big fucking gun
+    fireRate: 0
+    damage: 10
+    range: 10
+    firePoint: {fileID: 4532562715716682}
+  mask:
+    serializedVersion: 2
+    m_Bits: 1024
+  followCam: {fileID: 20664979478997824}
+  isLerpingPosition: 0
+  isLerpingRotation: 0
+  realPosition: {x: 0, y: 0, z: 0}
+  realRotation: {x: 0, y: 0, z: 0, w: 0}
+  lastRealPosition: {x: 0, y: 0, z: 0}
+  lastRealRotation: {x: 0, y: 0, z: 0, w: 0}
+  timeStartedLerping: 0
+  timeToLerp: 0
+  deathEffect: {fileID: 1976024319986560, guid: c8716324748904b60b8695b7095ce648,
+    type: 2}
+  spawnEffect: {fileID: 100004, guid: 0e086304a89824c5f8d2f79009782bb2, type: 2}
   maxHealth: 100
   bulletTrailPrefab: {fileID: 1495878682146406, guid: 319476287eaea459c9495773cfba3f5b,
     type: 2}
   muzzleFlashPrefab: {fileID: 1515557695330824, guid: 4eedb682da7a343deb82d6492ebec189,
     type: 2}
-  islandPrefab: {fileID: 1177362194093374, guid: 260a6546753ef47a6a6ee0b24776e628,
-    type: 2}
-  bridgePrefab: {fileID: 1713082393756876, guid: 8eaae8d5db705444383a9bde3979d4b7,
-    type: 2}
   muzzleLifeTime: 0.02
-  mapSize: 4
-  islandSpawnOffset: 24
-  currentIsland:
-    bridges: 
-    visited: 0
-    x: 0
-    y: 0
-  startIsland:
-    bridges: 
-    visited: 0
-    x: 0
-    y: 0
-  bridgeSpawnOffset: 12
+  bulletTrailLifeTime: 0.1
   disableOnDeath:
-  - {fileID: 114368252787951704}
-  - {fileID: 114165054734208760}
+  - {fileID: 58707746652574806}
+  - {fileID: 20664979478997824}
+  disableGameObjectsOnDeath:
+  - {fileID: 1343926973010698}
+  - {fileID: 1255171412710244}
 --- !u!114 &114837518833848496
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -60,12 +60,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\FollowCamera.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Island.cs" />
+    <Compile Include="Assets\Scripts\MapSetup.cs" />
     <Compile Include="Assets\Scripts\MatchSettings.cs" />
+    <Compile Include="Assets\Scripts\MatrixLayer.cs" />
     <Compile Include="Assets\Scripts\MoveTrail.cs" />
+    <Compile Include="Assets\Scripts\NetworkMessageHandler.cs" />
+    <Compile Include="Assets\Scripts\NetworkServerRelay.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\PlayerMotor.cs" />
     <Compile Include="Assets\Scripts\PlayerSetup.cs" />
     <Compile Include="Assets\Scripts\PlayerShoot.cs" />
@@ -74,7 +78,42 @@
     <Compile Include="Assets\Store Assets\Fx Explosion Pack\Script\csLightControl.cs" />
     <Compile Include="Assets\Store Assets\Fx Explosion Pack\Script\csMouseOrbit.cs" />
     <Compile Include="Assets\Store Assets\Fx Explosion Pack\Script\DestroyEffect.cs" />
+    <Compile Include="Assets\Store Assets\JMO Assets\WarFX\Demo\Assets\CFX_AutoStopLoopedEffect.cs" />
+    <Compile Include="Assets\Store Assets\JMO Assets\WarFX\Demo\Assets\CFX_Demo_RandomDir.cs" />
+    <Compile Include="Assets\Store Assets\JMO Assets\WarFX\Demo\Assets\CFX_Demo_RotateCamera.cs" />
+    <Compile Include="Assets\Store Assets\JMO Assets\WarFX\Demo\Assets\CFX_Demo_Translate.cs" />
+    <Compile Include="Assets\Store Assets\JMO Assets\WarFX\Demo\Assets\WFX_Demo.cs" />
+    <Compile Include="Assets\Store Assets\JMO Assets\WarFX\Demo\Assets\WFX_Demo_DeleteAfterDelay.cs" />
+    <Compile Include="Assets\Store Assets\JMO Assets\WarFX\Demo\Assets\WFX_Demo_New.cs" />
+    <Compile Include="Assets\Store Assets\JMO Assets\WarFX\Demo\Assets\WFX_Demo_RandomDir.cs" />
+    <Compile Include="Assets\Store Assets\JMO Assets\WarFX\Demo\Assets\WFX_Demo_Wall.cs" />
+    <Compile Include="Assets\Store Assets\JMO Assets\WarFX\Scripts\CFX_AutoDestructShuriken.cs" />
+    <Compile Include="Assets\Store Assets\JMO Assets\WarFX\Scripts\CFX_LightIntensityFade.cs" />
+    <Compile Include="Assets\Store Assets\JMO Assets\WarFX\Scripts\WFX_BulletHoleDecal.cs" />
+    <Compile Include="Assets\Store Assets\JMO Assets\WarFX\Scripts\WFX_LightFlicker.cs" />
+    <Compile Include="Assets\Store Assets\JMO Assets\WarFX\Spawn System\CFX_SpawnSystem.cs" />
     <Compile Include="Assets\Store Assets\sprite muzzle flashes\AnimatedTexture.cs" />
+    <Compile Include="Assets\Store Assets\Tazo_fx\Script\BillBoard.cs" />
+    <Compile Include="Assets\Store Assets\Tazo_fx\Script\button_target.cs" />
+    <Compile Include="Assets\Store Assets\Tazo_fx\Script\demo.cs" />
+    <Compile Include="Assets\Store Assets\Tazo_fx\Script\tazo_rotate.cs" />
+    <Compile Include="Assets\Store Assets\Tazo_fx\Script\tazo_UVScroller.cs" />
+    <None Include="Assets\Store Assets\JMO Assets\WarFX\Shaders\WFX_S AlphaBlend Scroll.shader" />
+    <None Include="Assets\Store Assets\JMO Assets\WarFX\Shaders\WFX_S Particle AddSoft A8.shader" />
+    <None Include="Assets\Store Assets\JMO Assets\WarFX\Shaders\WFX_S Alpha-Specular TintColor.shader" />
+    <None Include="Assets\Store Assets\JMO Assets\WarFX\Shaders\WFX_S AlphaBlend NoSoftParticles.shader" />
+    <None Include="Assets\Store Assets\JMO Assets\WarFX\_Effects\MuzzleFlashes\!MuzzleFlash Differences.txt" />
+    <None Include="Assets\Store Assets\JMO Assets\WarFX\Shaders\WFX_S Smoke Scroll.shader" />
+    <None Include="Assets\Store Assets\JMO Assets\WarFX\Shaders\WFX_S Add Scroll.shader" />
+    <None Include="Assets\Store Assets\JMO Assets\WarFX\!WarFX Readme.txt" />
+    <None Include="Assets\Store Assets\JMO Assets\WarFX\Shaders\WFX_S Particle Add A8.shader" />
+    <None Include="Assets\Store Assets\JMO Assets\Cartoon FX Easy Editor\CartoonFX Easy Editor Readme.txt" />
+    <None Include="Assets\Store Assets\JMO Assets\WarFX\_Effects (Mobile)\MuzzleFlashes\!MuzzleFlash Differences.txt" />
+    <None Include="Assets\Store Assets\JMO Assets\!JMO Assets Readme.txt" />
+    <None Include="Assets\Store Assets\JMO Assets\WarFX\Shaders\WFX_S Multiply Soft Scroll.shader" />
+    <None Include="Assets\Store Assets\JMO Assets\WarFX\Shaders\WFX_S Particle Multiply A8.shader" />
+    <None Include="Assets\Store Assets\JMO Assets\WarFX\Shaders\WFX_S Multiply Soft.shader" />
+    <None Include="Assets\Store Assets\JMO Assets\WarFX\Shaders\WFX_S Alpha-Diffuse TintColor.shader" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
