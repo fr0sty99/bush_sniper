@@ -32,6 +32,7 @@ public class MapSetup : NetworkBehaviour
 
     // TODO: we need to load on every client which is joining, hence we should move it to the nework part
     private Island[][] islands;
+    private List<GameObject> map = new List<GameObject>();
 
     // needed for island layering
     private MatrixLayer currentLayer;
@@ -40,21 +41,28 @@ public class MapSetup : NetworkBehaviour
     [SyncVar]
     private bool mapGenerated = false;
 
-    // test 
+	public override void OnStartServer()
+	{
+        generateMap();
+	}
+
 	public override void OnStartClient()
 	{
         Debug.Log("MapSetup started");
-        if (!mapGenerated)
-        {
-            generateMap();
+        while(!mapGenerated) {
+            StartCoroutine(WaitOneSec());
         }
         spawnMap();
 	}
-	// end of test
+
+    IEnumerator WaitOneSec()
+    {
+        yield return new WaitForSeconds(1);
+    }
 
 	private void OnDisconnectedFromServer(NetworkDisconnection info)
 	{
-        clearMap();
+        CmdClearMap();
 	}
 
 	public void Start()
@@ -117,11 +125,14 @@ public class MapSetup : NetworkBehaviour
         Debug.Log("Map geneartion finished.");
     }
 
-    public void clearMap() {
-        
+    [Command]
+    public void CmdClearMap() {
+        foreach(GameObject obj in map) {
+            Destroy(obj);
+        }
     }
 
-    public void spawnMap()
+    public void spawnMap() // todo: maybe change small colliders with big colliders?
     {
         for (int x = 0; x < islands.Length; x++)
         {
@@ -135,63 +146,56 @@ public class MapSetup : NetworkBehaviour
                 // create Bridges
                 if (islands[x][y].bridges[0]) // top bridge (vertical)
                 {
-                    Instantiate(bridgePrefab, new Vector2(x * islandSpawnSpacing, y * islandSpawnSpacing + bridgeSpawnSpacing), Quaternion.Euler(0, 0, angle90f));
+                    map.Add(Instantiate(bridgePrefab, new Vector2(x * islandSpawnSpacing, y * islandSpawnSpacing + bridgeSpawnSpacing), Quaternion.Euler(0, 0, angle90f)));
 
-                    // left Collider
-                    Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing - bridgeColliderSpacing - bridgeColliderSpacing, y * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing), Quaternion.identity);
-                    // right Collider
-                    Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing + bridgeColliderSpacing + bridgeColliderSpacing, y * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing), Quaternion.identity);
+                    map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing - bridgeColliderSpacing - bridgeColliderSpacing, y * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing), Quaternion.identity));
+                    map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing + bridgeColliderSpacing + bridgeColliderSpacing, y * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing), Quaternion.identity));
                 }
                 else
                 {
-                    GameObject midColliderInstance = Instantiate(bigCollider, new Vector2(x * islandSpawnSpacing, y * islandSpawnSpacing + bridgeSpawnSpacing + bigBridgeColliderSpacing), Quaternion.Euler(0, 0, angle90f));
-                    // left 
-                 //   Instantiate(collider, new Vector2(x * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing), y * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing), Quaternion.identity);
-                    // right 
-                 //   Instantiate(collider, new Vector2(x * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing), y * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing), Quaternion.identity);
+                    map.Add(Instantiate(bigCollider, new Vector2(x * islandSpawnSpacing, y * islandSpawnSpacing + bridgeSpawnSpacing + bigBridgeColliderSpacing), Quaternion.Euler(0, 0, angle90f)));
+                
                 }
                 if (islands[x][y].bridges[1])// right bridge (horizontal)
                 {
                     Instantiate(bridgePrefab, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing, y * islandSpawnSpacing), Quaternion.identity);
 
-                    GameObject topColliderInstance = Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing + (bridgeSpawnSpacing / 2), y * islandSpawnSpacing + bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity);
-                    GameObject bottomColliderInstance =Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing + (bridgeSpawnSpacing / 2), y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.identity);
+                        map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing + (bridgeSpawnSpacing / 2), y * islandSpawnSpacing + bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity));
+                        map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing + (bridgeSpawnSpacing / 2), y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.identity));
                 }
                 else // no right bridge
                 {
-                    GameObject topColliderInstance = Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing, y * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f));
-                    GameObject midColliderInstance = Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing, y * islandSpawnSpacing), Quaternion.Euler(0, 0, angle90f));
-                    GameObject bottomColliderInstance = Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing, y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f));
+                        map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing, y * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f)));
+                    map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing, y * islandSpawnSpacing), Quaternion.Euler(0, 0, angle90f)));
+                            map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing, y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f)));
                 }
                 if (islands[x][y].bridges[2])
                 {
                     // bottom
-                    GameObject bridgeInstance = Instantiate(bridgePrefab, new Vector2(x * islandSpawnSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing), Quaternion.Euler(0, 0, angle90f));
-                    bridgeInstance.name = "bottom of " + x + "|" + y;
+                        map.Add(Instantiate(bridgePrefab, new Vector2(x * islandSpawnSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing), Quaternion.Euler(0, 0, angle90f)));
 
-                    GameObject leftColliderInstance = Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing - bridgeColliderSpacing - bridgeColliderSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity);
-                    GameObject rightColliderInstance = Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing + bridgeColliderSpacing + bridgeColliderSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity);
+                        map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing - bridgeColliderSpacing - bridgeColliderSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity));
+                        map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing + bridgeColliderSpacing + bridgeColliderSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity));
                 }
                 else
                 {
-                    GameObject midColliderInstance = Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity);
-                    GameObject leftColliderInstance = Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing), y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity);
-                    GameObject rightColliderInstance = Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing), y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity);
+                        map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity));
+                            map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing), y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity));
+                            map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing), y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity));
                 }
                 if (islands[x][y].bridges[3])
                 {
                     // left
-                    GameObject bridgeInstance = Instantiate(bridgePrefab, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing), Quaternion.identity);
-                    bridgeInstance.name = "left of " + x + "|" + y;
+                    map.Add(Instantiate(bridgePrefab, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing), Quaternion.identity));
 
-                    GameObject topColliderInstance = Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - (bridgeSpawnSpacing / 2), y * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.identity);
-                    GameObject bottomColliderInstance = Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - (bridgeSpawnSpacing / 2), y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.identity);
+                            map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - (bridgeSpawnSpacing / 2), y * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.identity));
+                            map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - (bridgeSpawnSpacing / 2), y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.identity));
                 }
                 else
                 {
-                    GameObject topColliderIntance = Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f));
-                    GameObject middleColliderInstance = Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing), Quaternion.Euler(0, 0, angle90f));
-                    GameObject bottomColliderInstance = Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f));
+                            map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f)));
+                            map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing), Quaternion.Euler(0, 0, angle90f)));
+                            map.Add(Instantiate(smallCollider, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f)));
 
                 }
             }

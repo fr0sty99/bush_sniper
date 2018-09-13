@@ -18,10 +18,7 @@ public class PlayerSetup : NetworkBehaviour
 
     void Start()
     {
-        if(!isServer) {
-            DisableMapGenerator();
-            getAndSpawnMap();
-        }
+        
         // if this object is not the clients player, disable the choosen components
         if (!isLocalPlayer) 
         {
@@ -42,6 +39,12 @@ public class PlayerSetup : NetworkBehaviour
         }
 
         GetComponent<Player>().Setup();
+
+        if (!isServer)
+        {
+            DisableMapGenerator();
+            getAndSpawnMap();
+        }
 
     }
 
