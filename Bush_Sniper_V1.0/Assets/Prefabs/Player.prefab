@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 114206444976409154}
   - component: {fileID: 114176138213851424}
   - component: {fileID: 114263035846091950}
+  - component: {fileID: 114284041871184900}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -514,7 +515,7 @@ MonoBehaviour:
     firePoint: {fileID: 4452713120761094}
   mask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!114 &114206444976409154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -554,6 +555,25 @@ MonoBehaviour:
   disableOnDeath:
   - {fileID: 114765236023860632}
   - {fileID: 114176138213851424}
+--- !u!114 &114284041871184900
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1722248586082054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 044b7fe08e64e4731ac6d0877493a923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bridgePrefab: {fileID: 1713082393756876, guid: 8eaae8d5db705444383a9bde3979d4b7,
+    type: 2}
+  islandPrefab: {fileID: 1177362194093374, guid: 260a6546753ef47a6a6ee0b24776e628,
+    type: 2}
+  smallCollider: {fileID: 1943652948214474, guid: e24f860539e154d8597a0fa756a75396,
+    type: 2}
+  bigCollider: {fileID: 1533836466820168, guid: 8e359cdfc61094f45aa0109101217b3d,
+    type: 2}
 --- !u!114 &114297074951024288
 MonoBehaviour:
   m_ObjectHideFlags: 1

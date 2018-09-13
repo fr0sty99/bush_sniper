@@ -3,7 +3,11 @@ guid: 044b7fe08e64e4731ac6d0877493a923
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bridgePrefab: {instanceID: 0}
+  - islandPrefab: {instanceID: 0}
+  - collider: {instanceID: 0}
+  - bigCollider: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
