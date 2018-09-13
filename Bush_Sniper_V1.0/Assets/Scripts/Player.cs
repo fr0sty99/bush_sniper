@@ -45,8 +45,7 @@ public class Player : NetworkBehaviour {
 
         SetDefaults();
 
-        MapSetup setup = new MapSetup();
-        setup.Start();
+
 
 	}
 
