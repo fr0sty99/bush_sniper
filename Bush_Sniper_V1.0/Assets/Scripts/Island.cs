@@ -9,6 +9,7 @@ public class Island {
     public int x;
     public int y;
     public ArrayList neighbors = new ArrayList();
+    public MatrixLayer layer;
 
     public Island(int _x, int _y) {
         x = _x;

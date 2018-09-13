@@ -2,10 +2,18 @@
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerWeapon.cs">
     <Files>
+<<<<<<< HEAD
       <File FileName="Assets/Scripts/Player.cs" Line="21" Column="5" />
       <File FileName="Assets/Scripts/PlayerWeapon.cs" Line="11" Column="26" />
       <File FileName="Assets/Scripts/PlayerSetup.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/PlayerShoot.cs" Line="52" Column="78" />
+=======
+      <File FileName="Assets/Scripts/Player.cs" Line="145" Column="10" />
+      <File FileName="Assets/Scripts/PlayerWeapon.cs" Line="7" Column="44" />
+      <File FileName="Assets/Scripts/PlayerManager.cs" Line="80" Column="2" />
+      <File FileName="Assets/Scripts/PlayerSetup.cs" Line="39" Column="43" />
+      <File FileName="Assets/Scripts/MapSetup.cs" Line="35" Column="20" />
+>>>>>>> b883e9bce344a18f4e96ddec3b41cc262988d50e
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
