@@ -107,18 +107,17 @@ public class Player : NetworkMessageHandler
 
     private void Update()
     {
-        // kills your own player with the "K" button. used for debugging
-     //       if(!isLocalPlayer) {
-     //           return;
-     //       }
 
-        //       if(Input.GetKeyDown(KeyCode.K)) {
-        //           RpcTakeDamage(999);
-        //       }
+               
 
 
         if (isLocalPlayer)
         {
+            //    kills your own player with the "K" button. used for debugging
+        if (Input.GetKeyDown(KeyCode.K))
+            {
+                RpcTakeDamage(999);
+            }
             UpdateCameraMovement();
             UpdatePlayerMovement();
 
