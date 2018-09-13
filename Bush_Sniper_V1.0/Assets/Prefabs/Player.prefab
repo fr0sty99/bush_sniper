@@ -503,9 +503,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3341d799a30f74d1d9eb68a9147cc5a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-<<<<<<< HEAD
+  m_Name:
+  m_EditorClassIdentifier:
   weapon:
     name: Glock
     fireRate: 0
@@ -516,10 +515,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
 --- !u!114 &114193555193736298
-=======
   cameraDistance: 10
 --- !u!114 &114206330071962586
->>>>>>> b883e9bce344a18f4e96ddec3b41cc262988d50e
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -528,8 +525,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 044b7fe08e64e4731ac6d0877493a923, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   mapSize: 4
   islandSpawnSpacing: 24
   bridgeSpawnSpacing: 8
@@ -551,8 +548,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bf59910ca1c44449a0550ef44ad6b1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   componentsToDisable:
   - {fileID: 114742945809721044}
   - {fileID: 114710381266482930}
@@ -570,8 +567,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_TransformSyncMode: 2
   m_SendInterval: 0.1
   m_SyncRotationAxis: 7
@@ -591,8 +588,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8885729d8f244de194ef8597c2556d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!114 &114742945809721044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -602,9 +599,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26bf907eb9e6840f29c618d68894d254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerID: 
+  m_Name:
+  m_EditorClassIdentifier:
+  playerID:
   canSendNetworkMovement: 0
   speed: 10
   networkSendRate: 5
@@ -638,23 +635,20 @@ MonoBehaviour:
   muzzleFlashPrefab: {fileID: 1515557695330824, guid: 4eedb682da7a343deb82d6492ebec189,
     type: 2}
   muzzleLifeTime: 0.02
-<<<<<<< HEAD
   mapSize: 5
   islandSpawnOffset: 24
   currentIsland:
-    bridges: 
+    bridges:
     visited: 0
     x: 0
     y: 0
   startIsland:
-    bridges: 
+    bridges:
     visited: 0
     x: 0
     y: 0
   bridgeSpawnOffset: 12
-=======
   bulletTrailLifeTime: 0.1
->>>>>>> b883e9bce344a18f4e96ddec3b41cc262988d50e
   disableOnDeath:
   - {fileID: 58707746652574806}
   - {fileID: 20664979478997824}
@@ -670,8 +664,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_SceneId:
     m_Value: 0
   m_AssetId:
