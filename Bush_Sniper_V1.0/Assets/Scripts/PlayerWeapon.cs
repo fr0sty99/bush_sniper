@@ -8,7 +8,7 @@ public class PlayerWeapon {
 
     public float fireRate = 0;
     public int damage = 10;
-    public float range = 10f;
+    public float range = 20f;
     public Transform firePoint;
 
 }

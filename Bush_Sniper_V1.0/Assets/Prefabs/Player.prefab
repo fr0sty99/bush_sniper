@@ -507,9 +507,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon:
-    name: Pistol
-    fireRate: 6
-    damage: 40
+    name: Glock
+    fireRate: 0
+    damage: 10
     range: 10
     firePoint: {fileID: 4532562715716682}
   mask:
@@ -612,7 +612,7 @@ MonoBehaviour:
   bridgePrefab: {fileID: 1713082393756876, guid: 8eaae8d5db705444383a9bde3979d4b7,
     type: 2}
   muzzleLifeTime: 0.02
-  mapSize: 4
+  mapSize: 5
   islandSpawnOffset: 24
   currentIsland:
     bridges: 
