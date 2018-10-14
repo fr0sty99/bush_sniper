@@ -14,3 +14,8 @@ I will build the game for Smartphones (Android, iOS) and Web(Browser).
 Cheers :)
 
 Joris
+
+
+![screenshot](https://imgur.com/axrDHaY)
+![screenshot2](https://imgur.com/rkrlObj)
+
