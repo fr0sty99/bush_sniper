@@ -2,9 +2,8 @@
 using UnityEngine.Networking;
 using System.Collections;
 
-public class Player : NetworkBehaviour {
+public class Player : MonoBehaviour {
 
-    [SyncVar] // this prefix means, when the value of this variable changes, it will be "pushed out" to all other clients
     private bool _isDead = false;
     public bool isDead {
         get { return _isDead; }
@@ -27,22 +26,11 @@ public class Player : NetworkBehaviour {
     private float muzzleLifeTime = 0.02f;
     // TODO: implement player skin
 
-
-    [SyncVar] // this prefix means, when the value of this variable changes, it will be "pushed out" to all other clients
     private int currentHealt;
 
-    [SerializeField]
-    private Behaviour[] disableOnDeath;
-    private bool[] wasEnabled;
 
     public void Setup()
 	{
-        wasEnabled = new bool[disableOnDeath.Length];
-        for (int i = 0; i < wasEnabled.Length; i++)
-        {
-            wasEnabled[i] = disableOnDeath[i].enabled;
-        } 
-
         SetDefaults();
 
 
@@ -60,8 +48,7 @@ public class Player : NetworkBehaviour {
  //       }
 	//}
 
-    [ClientRpc] // this method gets executed on every client if its called
-    public void RpcSpawnShootEffect(Vector2 _pos, Quaternion _rot) {
+    public void SpawnShootEffect(Vector2 _pos, Quaternion _rot) {
         showBulletTrail(_pos, _rot);
         showMuzzle(_pos, _rot);
     }
@@ -82,8 +69,7 @@ public class Player : NetworkBehaviour {
         Destroy(Instantiate(bulletTrailPrefab, _pos, _rot), 1); 
     }
 
-    [ClientRpc] // this method gets executed on every client if its called
-    public void RpcTakeDamage(int _amount) 
+    public void TakeDamage(int _amount) 
     {
         if (isDead) {
             return;
@@ -102,33 +88,6 @@ public class Player : NetworkBehaviour {
 // TODO: die animation ///////////////////////////////
         isDead = true;
 
-        for (int i = 0; i < disableOnDeath.Length; i++)
-        {
-            disableOnDeath[i].enabled = false;
-        }
-
-        Collider2D _col = GetComponent<Collider2D>();
-        if (_col != null)
-        {
-            _col.enabled = true;
-        }
-
-        Debug.Log(transform.name + " is DEAD!");
-
-        StartCoroutine(Respawn());
-         
-    }
-
-    IEnumerator Respawn()
-    {
-        yield return new WaitForSeconds(GameManager.instance.matchSettings.respawnTime);
-
-        SetDefaults();
-        Transform _spawnPoint = NetworkManager.singleton.GetStartPosition();
-        transform.position = _spawnPoint.position;
-        transform.rotation = _spawnPoint.rotation;
-
-        Debug.Log(transform.name + " respawned.");
     }
 
     public void SetDefaults() 
@@ -137,14 +96,5 @@ public class Player : NetworkBehaviour {
 
         currentHealt = maxHealth;
 
-        for (int i = 0; i < disableOnDeath.Length; i++)
-        {
-            disableOnDeath[i].enabled = wasEnabled[i];
-        }
-
-        Collider2D _col = GetComponent<Collider2D>();
-        if(_col != null) {
-            _col.enabled = true;
-        }
     }
 }

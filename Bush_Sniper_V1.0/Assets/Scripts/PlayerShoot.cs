@@ -2,7 +2,7 @@
 using UnityEngine.Networking;
 using System;
 
-public class PlayerShoot : NetworkBehaviour
+public class PlayerShoot : MonoBehaviour
 {
     private const string PLAYER_TAG = "Player";
 
@@ -38,7 +38,6 @@ public class PlayerShoot : NetworkBehaviour
 
     }
 
-    [Client]
     private void Shoot()
     {
         // transform.right means forward in our case. the red axis is the axis which our player is facing
@@ -51,7 +50,7 @@ public class PlayerShoot : NetworkBehaviour
         // Raycast from _startPos to _destPos with the length of weapon.range, we only hit objects in the Layermask "mask"
         RaycastHit2D _hit = Physics2D.Raycast(_startPos, _destPos, weapon.range, mask);
 
-        CmdSpawnShootEffect(transform.name, weapon.firePoint.position, weapon.firePoint.rotation);
+        GetComponentInParent<Player>().SpawnShootEffect(weapon.firePoint.position, weapon.firePoint.rotation);
 
         Debug.DrawRay(_startPos, _destPos, Color.cyan);
 
@@ -61,7 +60,7 @@ public class PlayerShoot : NetworkBehaviour
             if (_hit.collider.tag == PLAYER_TAG)
             {
                 // tell server that we hit that player with its netID in its n  ame
-                CmdPlayerShoot(_hit.collider.name, transform.name, weapon.damage);
+                Shoot(_hit.collider.name, weapon.damage);
             }
         }
         catch (Exception e)
@@ -73,20 +72,10 @@ public class PlayerShoot : NetworkBehaviour
 
     }
 
-    [Command] // this gets called on every client
-    void CmdSpawnShootEffect(string _playerId, Vector2 pos, Quaternion rot)
+    void Shoot(string _damagedID, int damage)
     {
-        Player _player = GameManager.GetPlayer(_playerId);
-        _player.RpcSpawnShootEffect(pos, rot);
-    }
-
-    [Command]
-    void CmdPlayerShoot(string _damagedPlayerID, string _playerId, int damage)
-    {
-        Debug.Log(_damagedPlayerID + " has been shot from " + _playerId + " with a damage of " + damage);
-
-        Player _player = GameManager.GetPlayer(_damagedPlayerID);
-        _player.RpcTakeDamage(damage);
+        // TODO: make objects take damage
+        // GetComponentInParent<Player>().TakeDamage(damage);
     }
 
 }

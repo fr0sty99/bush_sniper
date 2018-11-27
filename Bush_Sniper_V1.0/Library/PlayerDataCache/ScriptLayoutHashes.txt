@@ -1,6 +1,6 @@
 OSXStandalone
 PlayerPath?
-/Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0/Builds/movemement.app
+/Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0/Builds/thisisatest.app
 SceneListBegin?
 Assets/Scenes/MainLevel1.unity
 SceneListEnd?

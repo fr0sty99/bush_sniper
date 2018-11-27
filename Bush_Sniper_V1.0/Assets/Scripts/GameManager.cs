@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 	private const string PLAYER_ID_PREFIX = "Player ";
 
     private static Dictionary<string, Player> players = new Dictionary<string, Player>();
+    private static Dictionary<string, Player> destroyableObjects = new Dictionary<string, Player>();
 
     public static void RegisterPlayer(string _netId, Player _player)
     {
@@ -35,9 +36,9 @@ public class GameManager : MonoBehaviour
         players.Remove(_playerId);
     }
 
-    public static Player GetPlayer(string _playerId)
+    public static Player GetDestroyableGameObject(string _objectID)
     {
-        return players[_playerId];
+        return destroyableObjects[_objectID];
     }
 
     //private void OnGUI()

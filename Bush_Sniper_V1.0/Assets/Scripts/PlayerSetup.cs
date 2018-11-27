@@ -3,7 +3,7 @@ using UnityEngine.Networking;
 using System;
 
 [RequireComponent(typeof(Player))]
-public class PlayerSetup : NetworkBehaviour
+public class PlayerSetup : MonoBehaviour
 {
     // This class is responsible for dis- and enabling components from other players in multiplayer.
 
@@ -18,7 +18,7 @@ public class PlayerSetup : NetworkBehaviour
 
     void Start()
     {
-        
+       /* used for multiplayer  
         // if this object is not the clients player, disable the choosen components
         if (!isLocalPlayer) 
         {
@@ -45,50 +45,17 @@ public class PlayerSetup : NetworkBehaviour
             DisableMapGenerator();
             getAndSpawnMap();
         }
+        */
 
-    }
-
-    // this method belongs to the NetworkBehaviour class
-	public override void OnStartClient()
-	{
-        base.OnStartClient();
-
-        string _netId = GetComponent<NetworkIdentity>().netId.ToString();
-        Player _player = GetComponent<Player>(); // Player is required in this class
-
-        GameManager.RegisterPlayer(_netId, _player);
-	}
-
-	void onDisable() // gets also called when the object is destroyed
-    {
-        // switch from followCamera to SceneCamera when playerObject is destroyed
-        if(sceneCamera != null && followCamera != null) {
-            sceneCamera.gameObject.SetActive(true);
-            followCamera.gameObject.SetActive(false);
-        }
-
-        // unregister player
-
-        GameManager.UnregisterPlayer(transform.name);
-    }
-
-    void AssignRemoteLayer() {
-        gameObject.layer = LayerMask.NameToLayer(remoteLayerName);
-    }
-
-    void DisableComponents() {
-        for (int i = 0; i < componentsToDisable.Length; i++)
+        // change from MainCamera to followCamera
+        sceneCamera = Camera.main;
+        if (sceneCamera != null)
         {
-            componentsToDisable[i].enabled = false;
+            sceneCamera.gameObject.SetActive(false);
         }
+
+        // give the followCamera its target
+        followCamera.GetComponent<FollowCamera>().setTarget(transform);
     }
 
-    void DisableMapGenerator() {
-        GetComponent<MapSetup>().enabled = false;
-    }
-
-    void getAndSpawnMap() {
-        MapSetup setup = new MapSetup();
-        setup.Start();
-    }
 }
