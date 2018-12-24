@@ -9,8 +9,6 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     public PlayerWeapon weapon;
     private float timeToFire = 0;
-    [SerializeField]
-    private LayerMask mask;
 
     private void Start()
     {
@@ -47,8 +45,8 @@ public class PlayerShoot : MonoBehaviour
         Vector2 _start = transform.position;
         Vector2 _destPos = transform.right * weapon.range;
 
-        // Raycast from _startPos to _destPos with the length of weapon.range, we only hit objects in the Layermask "mask"
-        RaycastHit2D _hit = Physics2D.Raycast(_startPos, _destPos, weapon.range, mask);
+        // Raycast from _startPos to _destPos with the length of weapon.range
+        RaycastHit2D _hit = Physics2D.Raycast(_startPos, _destPos, weapon.range);
 
         GetComponentInParent<Player>().SpawnShootEffect(weapon.firePoint.position, weapon.firePoint.rotation);
 

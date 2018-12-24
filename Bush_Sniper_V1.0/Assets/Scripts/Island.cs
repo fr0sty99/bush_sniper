@@ -21,6 +21,22 @@ public class Island {
         bridges[3] = false;
     }
 
+    public ArrayList getUnvisitedNeighbors() {
+        ArrayList list = new ArrayList();
+        if(neighbors.Count > 0) {
+            foreach(Island island in neighbors) {
+                if (!island.visited) {
+                    list.Add(island);
+                }
+            }
+        }
+        if(list.Count > 0) {
+            return list;
+        } else {
+            return null;
+        }
+    }
+
     public void setTopBridge(bool  value)
     {
         bridges[0] = value;

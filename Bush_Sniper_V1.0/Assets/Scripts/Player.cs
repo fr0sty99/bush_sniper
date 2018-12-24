@@ -37,17 +37,6 @@ public class Player : MonoBehaviour {
 
 	}
 
-	//void Update()
-	//{
- //       if(!isLocalPlayer) {
- //           return;
- //       }
-
- //       if(Input.GetKeyDown(KeyCode.K)) {
- //           RpcTakeDamage(999);
- //       }
-	//}
-
     public void SpawnShootEffect(Vector2 _pos, Quaternion _rot) {
         showBulletTrail(_pos, _rot);
         showMuzzle(_pos, _rot);

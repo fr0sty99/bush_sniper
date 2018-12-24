@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine.Networking;
 using UnityEngine;
+using System.Linq;
+using UnityScript.Scripting.Pipeline;
 
 public class MapSetup : MonoBehaviour
 {
     // Serialized fields first
     [SerializeField]
-    private const int mapSize = 4;
+    public const int mapSize = 4;
     [SerializeField]
     private const float islandSpawnSpacing = 24;
     [SerializeField]
@@ -16,6 +18,8 @@ public class MapSetup : MonoBehaviour
     private const float bridgeColliderSpacing = 3;
     [SerializeField]
     private const float bigBridgeColliderSpacing = 4;
+    [SerializeField]
+    private GameObject bushPrefab;
     [SerializeField]
     private GameObject bridgePrefab;
     [SerializeField]
@@ -28,38 +32,22 @@ public class MapSetup : MonoBehaviour
     private float islandPositionZ = 1f; // height pos
     [SerializeField]
     private float bridgePositionZ = 0.9f; // height pos
+    [SerializeField]
+    private int minTrees;
+    [SerializeField]
+    private int maxTrees;
 
     private float angle90f = 90f; // used for flipping the bridge from horizontal to vertical
-
-    private Island currentIsland;
     private Island startIsland;
+    private Island currentIsland;
 
     // TODO: we need to load on every client which is joining, hence we should move it to the nework part
     private Island[][] islands;
+    private ArrayList stack;
     private List<GameObject> map = new List<GameObject>();
 
     // needed for island layering
     private MatrixLayer currentLayer;
-    private int stepsDone = 0;
-
-    private bool mapGenerated = false;
-
-/*	
- *  used for multiplayer
- * public override void OnStartServer()
-	{
-        generateMap();
-	}
-
-	public override void OnStartClient()
-	{
-        Debug.Log("MapSetup started");
-        while(!mapGenerated) {
-            StartCoroutine(WaitOneSec());
-        }
-        spawnMap();
-	}
-	*/
 
     IEnumerator WaitOneSec()
     {
@@ -76,7 +64,6 @@ public class MapSetup : MonoBehaviour
 
     public void generateMap()
     {
-
         #region notes about algorith
         // generate Map with Depth-first search algorithm
 
@@ -105,22 +92,16 @@ public class MapSetup : MonoBehaviour
             }
         }
 
-        // we want them islands to sink overtime, so we mark them with layers
-        // we start at the highest island layer (A). This is the island which is the last sinking. After every iteration of the recusive method we increment the Layer
 
-        // 1. Start at a random island
+        // recursive backtracker (DFS)
+        stack = new ArrayList();
         int randomX = Random.Range(0, mapSize);
         int randomY = Random.Range(0, mapSize);
-
         currentIsland = islands[randomX][randomY];
-        currentIsland.layer = MatrixLayer.A;
-
-        stepsDone++;
 
         // recusive
         recursiveDFS(currentIsland);
 
-        mapGenerated = true;
         Debug.Log("Map geneartion finished.");
     }
 
@@ -130,7 +111,7 @@ public class MapSetup : MonoBehaviour
         }
     }
 
-    public void spawnMap() // todo: maybe change small colliders with big colliders?
+    public void spawnMap() 
     {
         for (int x = 0; x < islands.Length; x++)
         {
@@ -140,6 +121,31 @@ public class MapSetup : MonoBehaviour
                 GameObject islandInstance = Instantiate(islandPrefab, new Vector3(x * islandSpawnSpacing, y * islandSpawnSpacing, islandPositionZ), Quaternion.identity);
                 islandInstance.name = "Island (" + x + "," + y + ") is on Layer: " + islands[x][y].layer;
                 Debug.Log("Island (" + x + "," + y + ") is on Layer: " + islands[x][y].layer);
+
+                // spawn some trees
+                int randNumber = Random.Range(minTrees, maxTrees);
+                ArrayList spawnedPositions = new ArrayList();
+
+                for (int i = 0; i < randNumber+1; i++) {
+                    
+                    float randomPosX = Random.Range(-7f, 7f);
+                    float randomPosY = Random.Range(-7f, 7f);
+                    // check if new pos is not in range of already spawned bush
+                    foreach (float[] pos in spawnedPositions)
+                    {
+                    }
+
+
+                    // TODO: if the position is o.k , spawn tree and save pos.
+                    float[] position = new float[2];
+                    position[0] = randomPosX;
+                    position[1] = randomPosY;
+                    spawnedPositions.Add(position);
+
+                    Instantiate(bushPrefab, new Vector3(randomPosX + x * islandSpawnSpacing, randomPosY + y * islandSpawnSpacing, islandPositionZ - 2f), Quaternion.identity);
+
+                            // TODO: if the position is not o.k. get new randomPosX and Y
+                }
 
                 // create Bridges
                 if (islands[x][y].bridges[0]) // top bridge (vertical)
@@ -202,151 +208,125 @@ public class MapSetup : MonoBehaviour
         Debug.Log("Map spawning finished");
     }
 
-    void assignLayer(Island island)
-    {
-        switch (stepsDone)
-        {
-            case 0:
-                island.layer = MatrixLayer.A;
-                break;
-            case 1:
-                island.layer = MatrixLayer.B;
-                break;
-            case 2:
-                island.layer = MatrixLayer.C;
-                break;
-            case 3:
-                island.layer = MatrixLayer.D;
-                break;
-            case 4:
-                island.layer = MatrixLayer.E;
-                break;
-            case 5:
-                island.layer = MatrixLayer.F;
-                break;
-            case 6:
-                island.layer = MatrixLayer.G;
-                break;
-            case 7:
-                island.layer = MatrixLayer.H;
-                break;
+    bool unvisitedCellExists() {
+        foreach (Island[] _islandContainer in islands) {
+            foreach(Island _island in _islandContainer) {
+                if(!_island.visited) {
+                    return true;
+                }
+            }
         }
+        return false;
     }
 
-    // TODO: implement recursive backtracker instead of DFS
     void recursiveDFS(Island _island)
     {
+        //    Make the initial cell the current cell and mark it as visited
         currentIsland = _island;
+        currentIsland.visited = true;
 
-        if (currentIsland.visited)
+        //While there are unvisited cells
+        while (unvisitedCellExists())
         {
-            return;
+            //If the current cell has any neighbours which have not been visited
+            if (findUnvisitedIslandNeighbors(currentIsland))
+            {
+                //    Choose randomly one of the unvisited neighbours
+                ArrayList possibleNeighbors = currentIsland.getUnvisitedNeighbors();
+                if (possibleNeighbors != null) {
+                    object[] shuffleArray = possibleNeighbors.ToArray();
+                    int rand = Random.Range(0, currentIsland.neighbors.Count);
+                    Island _randomlyChoosenNeighbor = (Island)shuffleArray[rand];
+                    Debug.Log("neighbor found: x" + _randomlyChoosenNeighbor.x + ",y" + _randomlyChoosenNeighbor.y);
+                    currentIsland.neighbors = new ArrayList(); // reset neighbors
+                    //    Push the current cell to the stack
+                    stack.Add(currentIsland);
+
+                    //    Remove the wall between the current cell and the chosen cell
+                    createBridgeBetween(currentIsland, _randomlyChoosenNeighbor);
+
+                    //    Make the chosen cell the current cell and mark it as visited
+                    currentIsland = _randomlyChoosenNeighbor;
+                    currentIsland.visited = true;
+                }
+            }                
+            //Else if stack is not empty
+            else if (stack.Count > 0)
+            {
+                Debug.Log("stack size before pop: " + stack.Count);
+                //Pop a cell from the stack and make it the current cell
+                currentIsland = (Island) stack[0];
+                stack.RemoveAt(0);
+                Debug.Log("stack size after pop: " + stack.Count);
+            }
         }
-        else
-        {
-            // mark the current island as visited
-            currentIsland.visited = true;
-        }
-
-        // get a list of the current islands neighbors
-        findUnvisitedIslandNeighbors(currentIsland);
-
-        object[] shuffledArray = currentIsland.neighbors.ToArray();
-        for (int i = 0; i < currentIsland.neighbors.Count; i++)
-        {
-            int rand = Random.Range(0, currentIsland.neighbors.Count);
-            object temp = shuffledArray[rand];
-            shuffledArray[rand] = shuffledArray[i];
-            shuffledArray[i] = temp;
-        }
-
-        // assign layer before recursive call 
-        foreach (Island _unvisitedNeighbor in shuffledArray)
-        {
-            assignLayer(_unvisitedNeighbor); // assign height layer
-            stepsDone++;
-        }
-
-
-        // foreach neighbor
-        foreach (Island _unvisitedNeighbor in shuffledArray)
-        {
-            assignLayer(_unvisitedNeighbor); // assign height layer
-            createBridgeBetween(currentIsland, _unvisitedNeighbor);
-            recursiveDFS(_unvisitedNeighbor);
-        }
-
     }
 
-    void createBridgeBetween(Island currentIsland, Island neighbor)
+    void createBridgeBetween(Island _currentIsland, Island neighbor)
     {
         // We create the bridge only on one Island, because we would render it twice this way
         // neighbor on top of currentIsland
-        if (neighbor.y - 1 == currentIsland.y && currentIsland.x == neighbor.x)
+        if (neighbor.y - 1 == _currentIsland.y && _currentIsland.x == neighbor.x)
         {
-            currentIsland.setTopBridge(true);
+            _currentIsland.setTopBridge(true);
             neighbor.setBottomBridge(true);
         }
 
         // neighbor on the right of currentIsland
-        if (neighbor.x - 1 == currentIsland.x && currentIsland.y == neighbor.y)
+        if (neighbor.x - 1 == _currentIsland.x && _currentIsland.y == neighbor.y)
         {
-            currentIsland.setRightBridge(true);
+            _currentIsland.setRightBridge(true);
             neighbor.setLeftBridge(true);
         }
 
         // neighbor is on the bottom of currentIsland
-        if (neighbor.y + 1 == currentIsland.y && currentIsland.x == neighbor.x)
+        if (neighbor.y + 1 == _currentIsland.y && _currentIsland.x == neighbor.x)
         {
-            currentIsland.setBottomBridge(true);
+            _currentIsland.setBottomBridge(true);
             neighbor.setTopBridge(true);
         }
 
         // neighbor is on the left of currentIsland
-        if (neighbor.x + 1 == currentIsland.x && currentIsland.y == neighbor.y)
+        if (neighbor.x + 1 == _currentIsland.x && _currentIsland.y == neighbor.y)
         {
-            currentIsland.setLeftBridge(true);
+            _currentIsland.setLeftBridge(true);
             neighbor.setRightBridge(true);
         }
     }
 
-    void findUnvisitedIslandNeighbors(Island island)
+    bool findUnvisitedIslandNeighbors(Island island)
     {
         // top
         if (island.y + 1 < mapSize)
         {
-            if (!islands[island.x][island.y + 1].visited)
+            if (!islands[island.x][island.y + 1].visited && !island.neighbors.Contains(islands[island.x][island.y + 1]))
             {
-
+                island.neighbors.Add(islands[island.x][island.y + 1]);
             }
-            island.neighbors.Add(islands[island.x][island.y + 1]);
         }
         // right
         if (island.x + 1 < mapSize)
         {
-            if (!islands[island.x + 1][island.y].visited)
+            if (!islands[island.x + 1][island.y].visited && !island.neighbors.Contains(islands[island.x + 1][island.y]))
             {
-
+                island.neighbors.Add(islands[island.x + 1][island.y]);
             }
-            island.neighbors.Add(islands[island.x + 1][island.y]);
         }
         // bottom
         if (island.y - 1 >= 0)
         {
-            if (!islands[island.x][island.y - 1].visited)
+            if (!islands[island.x][island.y - 1].visited && !island.neighbors.Contains(islands[island.x][island.y - 1]))
             {
-
+                island.neighbors.Add(islands[island.x][island.y - 1]);
             }
-            island.neighbors.Add(islands[island.x][island.y - 1]);
         }
         // left
         if (island.x - 1 >= 0)
         {
-            if (!islands[island.x - 1][island.y].visited)
+            if (!islands[island.x - 1][island.y].visited && !island.neighbors.Contains(islands[island.x - 1][island.y]))
             {
-
+                island.neighbors.Add(islands[island.x - 1][island.y]);
             }
-            island.neighbors.Add(islands[island.x - 1][island.y]);
         }
 
         Debug.Log("Island x,y: " + island.x + "," + island.y + " | has neighbors: ");
@@ -354,8 +334,13 @@ public class MapSetup : MonoBehaviour
         {
             Debug.Log("Neighbor #" + i + ": " + ((Island)island.neighbors[i]).x + " , " + ((Island)island.neighbors[i]).y);
         }
+
+        // neighbor found
+        if(island.neighbors.Count > 0) {
+            return true;
+        }
+
+        // no neigbor found
+        return false;
     }
-
-
-
 }

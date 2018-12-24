@@ -5,8 +5,9 @@ public class PlayerController : MonoBehaviour
 {
     // This class is responsible for the player input and informing the PlayerMotor what movements to perform next
 
-    [SerializeField]    // When you mark a variable with "SerializeField", it will show up in the inspector, even tho it's a private variable
-    private float speed;
+    [SerializeField]    
+    private float movementSpeed;
+
     [SerializeField]
     private Camera followCam;
     private PlayerMotor motor;
@@ -59,7 +60,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // add up velocities and multiply with speed
-        Vector2 _velocity = (_moveVertical + _moveHorizontal) * speed;
+        Vector2 _velocity = (_moveVertical + _moveHorizontal) * movementSpeed;
 
         // apply movement
         motor.Move(_velocity);
