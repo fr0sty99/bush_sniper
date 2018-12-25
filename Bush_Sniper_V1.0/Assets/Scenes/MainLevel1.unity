@@ -183,6 +183,12 @@ Prefab:
       value: 
       objectReference: {fileID: 1078201692904436, guid: 5a00b29f0b7f44984ad30654102b2879,
         type: 2}
+    - target: {fileID: 114596794409038266, guid: 816c952891cf94c08ab4b82138213107,
+        type: 2}
+      propertyPath: cratePrefab
+      value: 
+      objectReference: {fileID: 1592312865040936, guid: 8ec5f38f5daae4ff7a503d94df690f44,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 816c952891cf94c08ab4b82138213107, type: 2}
   m_IsPrefabParent: 0

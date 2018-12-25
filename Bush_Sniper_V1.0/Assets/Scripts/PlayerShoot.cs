@@ -5,6 +5,7 @@ using System;
 public class PlayerShoot : MonoBehaviour
 {
     private const string PLAYER_TAG = "Player";
+    private const string CRATE_TAG = "Crate";
 
     [SerializeField]
     public PlayerWeapon weapon;
@@ -40,7 +41,6 @@ public class PlayerShoot : MonoBehaviour
     {
         // transform.right means forward in our case. the red axis is the axis which our player is facing
 
-
         Vector2 _startPos = weapon.firePoint.position;
         Vector2 _start = transform.position;
         Vector2 _destPos = transform.right * weapon.range;
@@ -52,13 +52,19 @@ public class PlayerShoot : MonoBehaviour
 
         Debug.DrawRay(_startPos, _destPos, Color.cyan);
 
+
         // if we hit a player
         try
         {
             if (_hit.collider.tag == PLAYER_TAG)
             {
-                // tell server that we hit that player with its netID in its n  ame
                 Shoot(_hit.collider.name, weapon.damage);
+            } else if (_hit.collider.tag == CRATE_TAG) {
+                _hit.collider.gameObject.GetComponent<Crate>().takeDamange(weapon.damage);
+                Debug.Log("crate hit with: " + weapon.damage + ". crate health: " + _hit.collider.gameObject.GetComponent<Crate>().getHealth());
+                if(_hit.collider.gameObject.GetComponent<Crate>().getHealth() == 0 ) {
+                    Destroy(_hit.collider.gameObject); // will spawn weapon and show exploding animation
+                }
             }
         }
         catch (Exception e)

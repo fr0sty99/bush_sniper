@@ -19,6 +19,8 @@ public class MapSetup : MonoBehaviour
     [SerializeField]
     private const float bigBridgeColliderSpacing = 4;
     [SerializeField]
+    private GameObject cratePrefab;
+    [SerializeField]
     private GameObject bushPrefab;
     [SerializeField]
     private GameObject bridgePrefab;
@@ -145,6 +147,15 @@ public class MapSetup : MonoBehaviour
                     Instantiate(bushPrefab, new Vector3(randomPosX + x * islandSpawnSpacing, randomPosY + y * islandSpawnSpacing, islandPositionZ - 2f), Quaternion.identity);
 
                             // TODO: if the position is not o.k. get new randomPosX and Y
+                }
+
+                // spawn crate
+                int randNumber2 = Random.Range(0, 1); // either 1 or 0 crate per island
+                for (int i = 0; i < randNumber2 + 1; i++) {
+                    float randomPosX = Random.Range(-6f, 6f);
+                    float randomPosY = Random.Range(-6f, 6f);
+
+                    Instantiate(cratePrefab, new Vector3(randomPosX + x * islandSpawnSpacing, randomPosY + y * islandSpawnSpacing, islandPositionZ - 2f), Quaternion.identity);
                 }
 
                 // create Bridges

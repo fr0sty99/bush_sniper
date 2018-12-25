@@ -1,24 +1,29 @@
 ﻿<Properties StartupConfiguration="{CF217019-7238-70E9-0275-E06C585B0FFA}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Island.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerShoot.cs">
     <Files>
-      <File FileName="Assets/Scripts/MapSetup.cs" Line="190" Column="24" />
-      <File FileName="Assets/Scripts/Island.cs" Line="24" Column="21" />
+      <File FileName="Assets/Scripts/MapSetup.cs" Line="170" Column="18" />
+      <File FileName="Assets/Scripts/Island.cs" Line="23" Column="5" />
+      <File FileName="Assets/Crate.cs" Line="5" Column="14" />
+      <File FileName="Assets/Scripts/PlayerShoot.cs" Line="55" Column="74" />
+      <File FileName="Assets/Scripts/Player.cs" Line="30" Column="5" />
     </Files>
     <Pads>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
         <State>
           <Value>this.islands[1][3].visited</Value>
           <Value>this.islands[0][0].visited</Value>
+          <Value>_randomlyChoosenNeighbor.x</Value>
+          <Value>_randomlyChoosenNeighbor.y</Value>
+          <Value>currentIsland.x</Value>
+          <Value>currentIsland.y</Value>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0/Assets/Scripts/MapSetup.cs" relfile="Assets/Scripts/MapSetup.cs" line="223" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
