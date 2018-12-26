@@ -103,6 +103,7 @@
     <Compile Include="Assets\Scripts\IslandSpawner.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\MapGenerator.cs" />
+    <Compile Include="Assets\Scripts\MatrixLayer.cs" />
     <Compile Include="Assets\Scripts\PlayerObject.cs" />
     <Compile Include="Assets\Scripts\PlayerSpawner.cs" />
     <None Include="Assets\AssetStoreStuff\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />

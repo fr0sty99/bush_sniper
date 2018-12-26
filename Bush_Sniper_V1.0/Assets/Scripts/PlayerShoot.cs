@@ -2,6 +2,7 @@
 using UnityEngine.Networking;
 using System;
 
+<<<<<<< HEAD
 public class PlayerShoot : MonoBehaviour
 {
     private const string PLAYER_TAG = "Player";
@@ -15,28 +16,18 @@ public class PlayerShoot : MonoBehaviour
     {
 
     }
+=======
+public class PlayerShoot : NetworkBehaviour
+{
+>>>>>>> master
 
     private void Update()
     {
-        // if firerate is zero
-        if (Math.Abs(weapon.fireRate) < float.Epsilon)
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                Shoot();
-            }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > timeToFire)
-            {
-                timeToFire = Time.time + 1 / weapon.fireRate;
-                Shoot();
-            }
-        }
+      
 
     }
 
+<<<<<<< HEAD
     private void Shoot()
     {
         // transform.right means forward in our case. the red axis is the axis which our player is facing
@@ -81,5 +72,9 @@ public class PlayerShoot : MonoBehaviour
         // TODO: make objects take damage
         // GetComponentInParent<Player>().TakeDamage(damage);
     }
+=======
+
+
+>>>>>>> master
 
 }

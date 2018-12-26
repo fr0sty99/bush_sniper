@@ -5,7 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - FollowCamera
+<<<<<<< HEAD
   - Crate
+=======
+  - MapManager
+>>>>>>> master
   layers:
   - Default
   - TransparentFX
