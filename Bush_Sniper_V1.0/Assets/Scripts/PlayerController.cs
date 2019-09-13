@@ -79,4 +79,9 @@ public class PlayerController : MonoBehaviour
         motor.Rotate(_rotation);
     }
 
+	private void OnTriggerEnter(Collider other)
+	{
+        Debug.Log("Triggered: " + other.name);
+	}
+
 }

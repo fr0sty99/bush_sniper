@@ -1,40 +1,13 @@
 ﻿<Properties StartupConfiguration="{CF217019-7238-70E9-0275-E06C585B0FFA}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerWeapon.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerShoot.cs">
     <Files>
-<<<<<<< HEAD
-      <File FileName="Assets/Scripts/MapSetup.cs" Line="170" Column="18" />
-      <File FileName="Assets/Scripts/Island.cs" Line="23" Column="5" />
-      <File FileName="Assets/Crate.cs" Line="5" Column="14" />
-      <File FileName="Assets/Scripts/PlayerShoot.cs" Line="55" Column="74" />
-      <File FileName="Assets/Scripts/Player.cs" Line="30" Column="5" />
-=======
-<<<<<<< HEAD
-      <File FileName="Assets/Scripts/Player.cs" Line="21" Column="5" />
-      <File FileName="Assets/Scripts/PlayerWeapon.cs" Line="11" Column="26" />
-      <File FileName="Assets/Scripts/PlayerSetup.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PlayerShoot.cs" Line="52" Column="78" />
-=======
-      <File FileName="Assets/Scripts/Player.cs" Line="145" Column="10" />
-      <File FileName="Assets/Scripts/PlayerWeapon.cs" Line="7" Column="44" />
-      <File FileName="Assets/Scripts/PlayerManager.cs" Line="80" Column="2" />
-      <File FileName="Assets/Scripts/PlayerSetup.cs" Line="39" Column="43" />
-      <File FileName="Assets/Scripts/MapSetup.cs" Line="35" Column="20" />
->>>>>>> b883e9bce344a18f4e96ddec3b41cc262988d50e
->>>>>>> master
+      <File FileName="Assets/Scripts/MapSetup.cs" Line="153" Column="56" />
+      <File FileName="Assets/Scripts/Pistol.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Player.cs" Line="50" Column="72" />
+      <File FileName="Assets/Scripts/Crate.cs" Line="50" Column="6" />
+      <File FileName="Assets/Scripts/PlayerShoot.cs" Line="102" Column="25" NotebookId="1" />
     </Files>
-    <Pads>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State>
-          <Value>this.islands[1][3].visited</Value>
-          <Value>this.islands[0][0].visited</Value>
-          <Value>_randomlyChoosenNeighbor.x</Value>
-          <Value>_randomlyChoosenNeighbor.y</Value>
-          <Value>currentIsland.x</Value>
-          <Value>currentIsland.y</Value>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

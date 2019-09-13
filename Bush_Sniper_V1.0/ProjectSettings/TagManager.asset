@@ -5,11 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - FollowCamera
-<<<<<<< HEAD
-  - Crate
-=======
   - MapManager
->>>>>>> master
+  - Undefined
+  - Crate
   layers:
   - Default
   - TransparentFX
@@ -19,9 +17,9 @@ TagManager:
   - UI
   - 
   - 
-  - Obstacle
-  - LocalPlayer
-  - RemotePlayer
+  - 
+  - 
+  - 
   - 
   - 
   - 

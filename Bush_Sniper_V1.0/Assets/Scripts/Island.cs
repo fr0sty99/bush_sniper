@@ -21,7 +21,6 @@ public class Island {
         bridges[3] = false;
     }
 
-<<<<<<< HEAD
     public ArrayList getUnvisitedNeighbors() {
         ArrayList list = new ArrayList();
         if(neighbors.Count > 0) {
@@ -38,8 +37,6 @@ public class Island {
         }
     }
 
-=======
->>>>>>> master
     public void setTopBridge(bool  value)
     {
         bridges[0] = value;

@@ -51,7 +51,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -79,6 +79,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
+  dropPrefabList:
+  - {fileID: 1311199122607766, guid: ed3d25f3090ce4671bc161b98a050256, type: 2}
+  - {fileID: 1768660349620966, guid: 589b9e51b75fc4aeabc4e1e6b3a3aaef, type: 2}
+  - {fileID: 1528632128887388, guid: 33dbaa0c8f7884de599193c8102c4330, type: 2}
 --- !u!212 &212051379096702366
 SpriteRenderer:
   m_ObjectHideFlags: 1

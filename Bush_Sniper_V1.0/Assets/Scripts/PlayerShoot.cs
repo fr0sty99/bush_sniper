@@ -2,69 +2,137 @@
 using UnityEngine.Networking;
 using System;
 
-<<<<<<< HEAD
 public class PlayerShoot : MonoBehaviour
 {
     private const string PLAYER_TAG = "Player";
     private const string CRATE_TAG = "Crate";
+    private const string RIFLE_TAG = "Rifle";
+    private const string SHOTGUN_TAG = "Shotgun";
+    private const string PISTOL_TAG = "Pistol";
+    private const string FIST_TAG = "Fist";
+
+    private GameObject pistol;
+    private GameObject shotgun;
+    private GameObject rifle;
+    private GameObject fist;
 
     [SerializeField]
-    public PlayerWeapon weapon;
+    public PlayerWeapon currentWeapon;
     private float timeToFire = 0;
 
     private void Start()
     {
-
+        pistol = transform.Find("WeaponHolder").Find("Pistol").gameObject;
+        shotgun = transform.Find("WeaponHolder").Find("Shotgun").gameObject;
+        rifle = transform.Find("WeaponHolder").Find("Rifle").gameObject;
+        fist = transform.Find("WeaponHolder").Find("Fist").gameObject;
     }
-=======
-public class PlayerShoot : NetworkBehaviour
-{
->>>>>>> master
 
     private void Update()
     {
-      
-
+        // if firerate is zero
+        if (Math.Abs(currentWeapon.fireRate) < float.Epsilon)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Shoot();
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > timeToFire)
+            {
+                timeToFire = Time.time + 1 / currentWeapon.fireRate;
+                Shoot();
+            }
+        }
     }
 
-<<<<<<< HEAD
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.name == PISTOL_TAG)
+        {
+            pistol.SetActive(true);
+            shotgun.SetActive(false);
+            rifle.SetActive(false);
+            fist.SetActive(false);
+            currentWeapon = pistol.GetComponent<Pistol>();
+        }
+        else if (collision.name == RIFLE_TAG)
+        {
+            pistol.SetActive(false);
+            shotgun.SetActive(false);
+            rifle.SetActive(true);
+            fist.SetActive(false);
+            currentWeapon = rifle.GetComponent<Rifle>();
+        }
+        else if (collision.name == SHOTGUN_TAG)
+        {
+            pistol.SetActive(false);
+            shotgun.SetActive(true);
+            rifle.SetActive(false);
+            fist.SetActive(false);
+            currentWeapon = shotgun.GetComponent<Shotgun>();
+        }
+        Destroy(collision.transform.parent.gameObject);
+    }
+
     private void Shoot()
     {
         // transform.right means forward in our case. the red axis is the axis which our player is facing
-
-        Vector2 _startPos = weapon.firePoint.position;
-        Vector2 _start = transform.position;
-        Vector2 _destPos = transform.right * weapon.range;
-
-        // Raycast from _startPos to _destPos with the length of weapon.range
-        RaycastHit2D _hit = Physics2D.Raycast(_startPos, _destPos, weapon.range);
-
-        GetComponentInParent<Player>().SpawnShootEffect(weapon.firePoint.position, weapon.firePoint.rotation);
-
-        Debug.DrawRay(_startPos, _destPos, Color.cyan);
-
-
-        // if we hit a player
-        try
+        if (currentWeapon.name != FIST_TAG)
         {
-            if (_hit.collider.tag == PLAYER_TAG)
+            Vector2 _startPos = currentWeapon.firePoint.position;
+            Vector2 _destPos = transform.right * currentWeapon.range;
+
+            // Raycast from _startPos to _destPos with the length of weapon.range
+            RaycastHit2D _hit = Physics2D.Raycast(_startPos, _destPos, currentWeapon.range);
+
+            GetComponentInParent<Player>().SpawnShootEffect(currentWeapon.firePoint.position, currentWeapon.firePoint.rotation, currentWeapon.name);
+            Debug.DrawRay(_startPos, _destPos, Color.cyan);
+
+            // if we hit a player
+            try
             {
-                Shoot(_hit.collider.name, weapon.damage);
-            } else if (_hit.collider.tag == CRATE_TAG) {
-                _hit.collider.gameObject.GetComponent<Crate>().takeDamange(weapon.damage);
-                Debug.Log("crate hit with: " + weapon.damage + ". crate health: " + _hit.collider.gameObject.GetComponent<Crate>().getHealth());
-                if(_hit.collider.gameObject.GetComponent<Crate>().getHealth() == 0 ) {
+                if (_hit.collider.tag == CRATE_TAG)
+                {
+                    _hit.collider.gameObject.GetComponent<Crate>().takeDamange(currentWeapon.damage);
+                    Debug.Log("crate hit with: " + currentWeapon.damage + ". crate health: " + _hit.collider.gameObject.GetComponent<Crate>().getHealth());
+                    if (_hit.collider.gameObject.GetComponent<Crate>().getHealth() <= 0)
+                    {
+                        Destroy(_hit.collider.gameObject); // will spawn weapon and show exploding animation
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                // didnt hit any player.
+                // TODO: rewrite this hacked part
+                return;
+            }
+        }
+        else
+        {
+            // TODO: meele attack
+            Vector2 _startPos = currentWeapon.firePoint.position;
+            Vector2 _destPos = transform.right * 0.3f; // TODO: remove hardcoded meeele range
+
+            // Raycast from _startPos to _destPos with the length of weapon.range
+            RaycastHit2D _hit = Physics2D.Raycast(_startPos, _destPos, 0.3f);
+
+            // show attack animation
+            Debug.DrawRay(_startPos, _destPos, Color.cyan);
+            if (_hit.collider.tag == CRATE_TAG)
+            {
+                _hit.collider.gameObject.GetComponent<Crate>().takeDamange(currentWeapon.damage);
+                Debug.Log("crate hit with: " + currentWeapon.damage + ". crate health: " + _hit.collider.gameObject.GetComponent<Crate>().getHealth());
+                if (_hit.collider.gameObject.GetComponent<Crate>().getHealth() <= 0)
+                {
                     Destroy(_hit.collider.gameObject); // will spawn weapon and show exploding animation
                 }
             }
-        }
-        catch (Exception e)
-        {
-            // didnt hit any player.
-            // TODO: rewrite this hacked part
-            return;
-        }
 
+        }
     }
 
     void Shoot(string _damagedID, int damage)
@@ -72,9 +140,5 @@ public class PlayerShoot : NetworkBehaviour
         // TODO: make objects take damage
         // GetComponentInParent<Player>().TakeDamage(damage);
     }
-=======
-
-
->>>>>>> master
 
 }

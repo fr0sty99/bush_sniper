@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Networking;
 using UnityEngine;
-using System.Linq;
-using UnityScript.Scripting.Pipeline;
+using System;
 
 public class MapSetup : MonoBehaviour
 {
@@ -40,6 +37,9 @@ public class MapSetup : MonoBehaviour
     [SerializeField]
     private int maxTrees;
 
+    [SerializeField]
+    private float objectSpawnRadius = 1.5f; // min. distance between 2 bushes/trees
+
     private float angle90f = 90f; // used for flipping the bridge from horizontal to vertical
     private Island startIsland;
     private Island currentIsland;
@@ -57,7 +57,7 @@ public class MapSetup : MonoBehaviour
         yield return new WaitForSeconds(1);
     }
 
-	public void Start()
+    public void Start()
     {
         Debug.Log("MapSetup started");
 
@@ -98,8 +98,8 @@ public class MapSetup : MonoBehaviour
 
         // recursive backtracker (DFS)
         stack = new ArrayList();
-        int randomX = Random.Range(0, mapSize);
-        int randomY = Random.Range(0, mapSize);
+        int randomX = UnityEngine.Random.Range(0, mapSize);
+        int randomY = UnityEngine.Random.Range(0, mapSize);
         currentIsland = islands[randomX][randomY];
 
         // recusive
@@ -108,162 +108,125 @@ public class MapSetup : MonoBehaviour
         Debug.Log("Map geneartion finished.");
     }
 
-    public void ClearMap() {
-        foreach(GameObject obj in map) {
+    public void ClearMap()
+    {
+        foreach (GameObject obj in map)
+        {
             Destroy(obj);
         }
     }
 
-    public void spawnMap() 
-=======
-using UnityEngine;
-using System.Collections;
-
-// this class is responsible for creating and sharing the map
-using UnityEngine.Networking;
-using System.Linq;
-using Boo.Lang.Environments;
-
-public class MapSetup : NetworkBehaviour
-{
-
-    // Serialized fields first
-    [SerializeField]
-    private int mapSize = 4;
-    [SerializeField]
-    private float islandSpawnSpacing = 24;
-    [SerializeField]
-    private float bridgeSpawnSpacing = 8;
-    [SerializeField]
-    private float bridgeColliderSpacing = 3;
-    [SerializeField]
-    private GameObject bridgePrefab;
-    [SerializeField]
-    private GameObject islandPrefab;
-    [SerializeField]
-    private GameObject bridgeCollider;
-    [SerializeField]
-    private GameObject islandCollider;
-
-    private float angle90f = 90f; // used for flipping the bridge from horizontal to vertical
-
-    private Island currentIsland;
-    private Island startIsland;
-
-    // TODO: we need to load on every client which is joining, hence we should move it to the nework part
-    private Island[][] islands;
-
-    // needed for island layering
-    private MatrixLayer currentLayer;
-    private int stepsDone = 0;
-
-    [SyncVar]
-    private bool mapGenerated = false;
-
-
-
-    private void Start()
-    {
-        if (!mapGenerated)
-        {
-            generateMap();
-        }
-        spawnMap();
-    }
-
-    public void generateMap()
-    {
-
-        #region notes about algorith
-        // generate Map with Depth-first search algorithm
-
-        // For the setup we have A n*n  Array of Islands, which have no bridges ( see variables at top ) 
-
-        // Algorithm-Notes:
-        // 1. Start at a random island
-        // 2. Mark the current island as visited, and get a list of its neighbors. For each neighbor, starting with a randomly selected neighbor:
-        //      If this neighbor hasn't been visited, create a bridge between this island and that neighbor, and then recurse with that neighbor as the current island
-        // finish :-) 
-
-        #endregion
-        // Initialize a 2D-Array of Islands with size n*n
-
-        islands = new Island[mapSize][];
-        for (int i = 0; i < islands.Length; i++)
-        {
-            islands[i] = new Island[mapSize];
-        }
-
-        for (int x = 0; x < islands.Length; x++)
-        {
-            for (int y = 0; y < islands.Length; y++)
-            {
-                islands[x][y] = new Island(x, y);
-            }
-        }
-
-        // we want them islands to sink overtime, so we mark them with layers
-        // we start at the highest island layer (A). This is the island which is the last sinking. After every iteration of the recusive method we increment the Layer
-
-        // 1. Start at a random island
-        int randomX = Random.Range(0, mapSize);
-        int randomY = Random.Range(0, mapSize);
-
-        currentIsland = islands[randomX][randomY];
-        currentIsland.layer = MatrixLayer.A;
-
-        stepsDone++;
-
-        // recusive
-        recursiveDFS(currentIsland);
-
-        mapGenerated = true;
-        Debug.Log("Map geneartion finished.");
-    }
-
     public void spawnMap()
->>>>>>> master
     {
         for (int x = 0; x < islands.Length; x++)
         {
             for (int y = 0; y < islands.Length; y++)
             {
                 // create Island
-<<<<<<< HEAD
                 GameObject islandInstance = Instantiate(islandPrefab, new Vector3(x * islandSpawnSpacing, y * islandSpawnSpacing, islandPositionZ), Quaternion.identity);
                 islandInstance.name = "Island (" + x + "," + y + ") is on Layer: " + islands[x][y].layer;
                 Debug.Log("Island (" + x + "," + y + ") is on Layer: " + islands[x][y].layer);
 
                 // spawn some trees
-                int randNumber = Random.Range(minTrees, maxTrees);
-                ArrayList spawnedPositions = new ArrayList();
+                // TODO REFACTOR SO no tree will spawn in the radius of another..
 
-                for (int i = 0; i < randNumber+1; i++) {
-                    
-                    float randomPosX = Random.Range(-7f, 7f);
-                    float randomPosY = Random.Range(-7f, 7f);
-                    // check if new pos is not in range of already spawned bush
-                    foreach (float[] pos in spawnedPositions)
-                    {
-                    }
+                int randNumber = UnityEngine.Random.Range(minTrees, maxTrees);
+                //    ArrayList spawnedPositions = new ArrayList();
 
+                for (int i = 0; i < randNumber + 1; i++)
+                {
+                   float finalPosX = 0f, finalPosY = 0f;
+                    float randomPosY, randomPosX;
+                    randomPosY = UnityEngine.Random.Range(-7f, 7f);
+                    randomPosX = UnityEngine.Random.Range(-7f, 7f);
+
+                    //while (finalPosY == 0f)
+                    //{
+                    //    randomPosY = UnityEngine.Random.Range(-7f, 7f);
+                    //    if (spawnedPositions.Count != 0)
+                    //    {
+                    //        foreach (float[] pos in spawnedPositions)
+                    //        {
+
+                    //            if (pos[1] + objectSpawnRadius < randomPosY && pos[1] - objectSpawnRadius > randomPosY)
+                    //            {
+                    //                finalPosY = randomPosY;
+                    //            }
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        finalPosY = randomPosY;
+                    //    }
+                    //}
+
+                    //while (finalPosX == 0f)
+                    //{
+                    //    randomPosX = UnityEngine.Random.Range(-7f, 7f);
+                    //    if (spawnedPositions.Count != 0)
+                    //    {
+                    //        foreach (float[] pos in spawnedPositions)
+                    //        {
+
+                    //            if (pos[0] + objectSpawnRadius < randomPosX && pos[0] - objectSpawnRadius > randomPosX)
+                    //            {
+                    //                finalPosX = randomPosX;
+                    //            }
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        finalPosX = randomPosX;
+                    //    }
+
+                    //}
+
+                    //while (finalPosX == 0f || finalPosY == 0f)
+                    //{
+                    //    float randomPosX = Random.Range(-7f, 7f);
+                    //    float randomPosY = Random.Range(-7f, 7f);
+                    //    if (spawnedPositions.Count > 0)
+                    //    {
+                    //        foreach (float[] pos in spawnedPositions)
+                    //        {
+                    //            if (randomPosX + objectSpawnRadius <= pos[0] && randomPosX - objectSpawnRadius >= pos[0] && finalPosX != 0f)
+                    //            { // x
+                    //                Debug.Log("posX is good: " + randomPosX);
+                    //                finalPosX = randomPosX;
+                    //            }
+                    //            if (randomPosY + objectSpawnRadius <= pos[1] && randomPosY - objectSpawnRadius >= pos[1] && finalPosY != 0f)
+                    //            { // y
+                    //                Debug.Log("posY is good: " + randomPosY);
+                    //                finalPosY = randomPosY;
+                    //            }
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        finalPosX = randomPosX;
+                    //        finalPosY = randomPosY;
+                    //        break;
+                    //    }
+
+                    //}
 
                     // TODO: if the position is o.k , spawn tree and save pos.
-                    float[] position = new float[2];
-                    position[0] = randomPosX;
-                    position[1] = randomPosY;
-                    spawnedPositions.Add(position);
+                    //float[] position = new float[2];
+                    //position[0] = finalPosX;
+                    //position[1] = finalPosY;
+                    //spawnedPositions.Add(position);
 
-                    Instantiate(bushPrefab, new Vector3(randomPosX + x * islandSpawnSpacing, randomPosY + y * islandSpawnSpacing, islandPositionZ - 2f), Quaternion.identity);
+                    Instantiate(bushPrefab, new Vector3(finalPosX + x * islandSpawnSpacing, finalPosY + y * islandSpawnSpacing, islandPositionZ - 2f), Quaternion.identity);
 
-                            // TODO: if the position is not o.k. get new randomPosX and Y
+                    // TODO: if the position is not o.k. get new randomPosX and Y
                 }
 
                 // spawn crate
-                int randNumber2 = Random.Range(0, 1); // either 1 or 0 crate per island
-                for (int i = 0; i < randNumber2 + 1; i++) {
-                    float randomPosX = Random.Range(-6f, 6f);
-                    float randomPosY = Random.Range(-6f, 6f);
+                int randNumber2 = UnityEngine.Random.Range(0, 1); // either 1 or 0 crate per island
+                for (int i = 0; i < randNumber2 + 1; i++)
+                {
+                    float randomPosX = UnityEngine.Random.Range(-6f, 6f);
+                    float randomPosY = UnityEngine.Random.Range(-6f, 6f);
 
                     Instantiate(cratePrefab, new Vector3(randomPosX + x * islandSpawnSpacing, randomPosY + y * islandSpawnSpacing, islandPositionZ - 2f), Quaternion.identity);
                 }
@@ -279,112 +242,49 @@ public class MapSetup : NetworkBehaviour
                 else
                 {
                     map.Add(Instantiate(bigCollider, new Vector3(x * islandSpawnSpacing, y * islandSpawnSpacing + bridgeSpawnSpacing + bigBridgeColliderSpacing), Quaternion.Euler(0, 0, angle90f)));
-                
+
                 }
                 if (islands[x][y].bridges[1])// right bridge (horizontal)
                 {
                     Instantiate(bridgePrefab, new Vector3(x * islandSpawnSpacing + bridgeSpawnSpacing, y * islandSpawnSpacing, bridgePositionZ), Quaternion.identity);
 
-                        map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing + bridgeSpawnSpacing + (bridgeSpawnSpacing / 2), y * islandSpawnSpacing + bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity));
-                        map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing + bridgeSpawnSpacing + (bridgeSpawnSpacing / 2), y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.identity));
+                    map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing + bridgeSpawnSpacing + (bridgeSpawnSpacing / 2), y * islandSpawnSpacing + bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity));
+                    map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing + bridgeSpawnSpacing + (bridgeSpawnSpacing / 2), y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.identity));
                 }
                 else // no right bridge
                 {
-                        map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing, y * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f)));
+                    map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing, y * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f)));
                     map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing, y * islandSpawnSpacing), Quaternion.Euler(0, 0, angle90f)));
-                            map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing, y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f)));
-=======
-                GameObject islandInstance = Instantiate(islandPrefab, new Vector2(x * islandSpawnSpacing, y * islandSpawnSpacing), Quaternion.identity);
-                islandInstance.name = "Island (" + x + "," + y + ") is on Layer: " + islands[x][y].layer;
-                Debug.Log("Island (" + x + "," + y + ") is on Layer: " + islands[x][y].layer);
+                    map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing, y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f)));
 
-                // create Bridges
-                if (islands[x][y].bridges[0])
-                {
-                    // top
-                    GameObject bridgeInstance = Instantiate(bridgePrefab, new Vector2(x * islandSpawnSpacing, y * islandSpawnSpacing + bridgeSpawnSpacing), Quaternion.Euler(0, 0, angle90f));
-                    bridgeInstance.name = " top of " + x + "|" + y;
-
-                    GameObject leftColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing - bridgeColliderSpacing - bridgeColliderSpacing, y * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing), Quaternion.identity);
-                    GameObject rightColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing + bridgeColliderSpacing + bridgeColliderSpacing, y * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing), Quaternion.identity);
-                }
-                else
-                {
-                    GameObject midColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing, y * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing), Quaternion.identity);
-                    GameObject leftColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing), y * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing), Quaternion.identity);
-                    GameObject rightColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing), y * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing), Quaternion.identity);
-                }
-                if (islands[x][y].bridges[1])
-                {
-                    // right
-                    GameObject bridgeInstance = Instantiate(bridgePrefab, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing, y * islandSpawnSpacing), Quaternion.identity);
-                    bridgeInstance.name = "right of " + x + "|" + y;
-
-                    GameObject topColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing + (bridgeSpawnSpacing / 2), y * islandSpawnSpacing + bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity);
-                    GameObject bottomColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing + (bridgeSpawnSpacing / 2), y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.identity);
-                }
-                else
-                {
-                    GameObject topColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing, y * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f));
-                    GameObject middleColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing, y * islandSpawnSpacing), Quaternion.Euler(0, 0, angle90f));
-                    GameObject bottomColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing + bridgeSpawnSpacing + bridgeColliderSpacing, y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f));
->>>>>>> master
                 }
                 if (islands[x][y].bridges[2])
                 {
                     // bottom
-<<<<<<< HEAD
                     map.Add(Instantiate(bridgePrefab, new Vector3(x * islandSpawnSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing, bridgePositionZ), Quaternion.Euler(0, 0, angle90f)));
 
-                        map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing - bridgeColliderSpacing - bridgeColliderSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity));
-                        map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing + bridgeColliderSpacing + bridgeColliderSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity));
+                    map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing - bridgeColliderSpacing - bridgeColliderSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity));
+                    map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing + bridgeColliderSpacing + bridgeColliderSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity));
                 }
                 else
                 {
                     map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, bridgePositionZ), Quaternion.identity));
-                            map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing), y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity));
-                            map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing), y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity));
-=======
-                    GameObject bridgeInstance = Instantiate(bridgePrefab, new Vector2(x * islandSpawnSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing), Quaternion.Euler(0, 0, angle90f));
-                    bridgeInstance.name = "bottom of " + x + "|" + y;
-
-                    GameObject leftColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing - bridgeColliderSpacing - bridgeColliderSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity);
-                    GameObject rightColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing + bridgeColliderSpacing + bridgeColliderSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity);
-                }
-                else
-                {
-                    GameObject midColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing, y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity);
-                    GameObject leftColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing), y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity);
-                    GameObject rightColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing), y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity);
->>>>>>> master
+                    map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing), y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity));
+                    map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing), y * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing), Quaternion.identity));
                 }
                 if (islands[x][y].bridges[3])
                 {
                     // left
-<<<<<<< HEAD
                     map.Add(Instantiate(bridgePrefab, new Vector3(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing, bridgePositionZ), Quaternion.identity));
 
-                            map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing - bridgeSpawnSpacing - (bridgeSpawnSpacing / 2), y * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.identity));
-                            map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing - bridgeSpawnSpacing - (bridgeSpawnSpacing / 2), y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.identity));
+                    map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing - bridgeSpawnSpacing - (bridgeSpawnSpacing / 2), y * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.identity));
+                    map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing - bridgeSpawnSpacing - (bridgeSpawnSpacing / 2), y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.identity));
                 }
                 else
                 {
-                            map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f)));
-                            map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing), Quaternion.Euler(0, 0, angle90f)));
-                            map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f)));
-=======
-                    GameObject bridgeInstance = Instantiate(bridgePrefab, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing), Quaternion.identity);
-                    bridgeInstance.name = "left of " + x + "|" + y;
-
-                    GameObject topColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - (bridgeSpawnSpacing / 2), y * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.identity);
-                    GameObject bottomColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - (bridgeSpawnSpacing / 2), y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.identity);
-                }
-                else
-                {
-                    GameObject topColliderIntance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f));
-                    GameObject middleColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing), Quaternion.Euler(0, 0, angle90f));
-                    GameObject bottomColliderInstance = Instantiate(bridgeCollider, new Vector2(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f));
->>>>>>> master
+                    map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing + (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f)));
+                    map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing), Quaternion.Euler(0, 0, angle90f)));
+                    map.Add(Instantiate(smallCollider, new Vector3(x * islandSpawnSpacing - bridgeSpawnSpacing - bridgeColliderSpacing, y * islandSpawnSpacing - (bridgeSpawnSpacing - bridgeColliderSpacing)), Quaternion.Euler(0, 0, angle90f)));
 
                 }
             }
@@ -393,11 +293,14 @@ public class MapSetup : NetworkBehaviour
         Debug.Log("Map spawning finished");
     }
 
-<<<<<<< HEAD
-    bool unvisitedCellExists() {
-        foreach (Island[] _islandContainer in islands) {
-            foreach(Island _island in _islandContainer) {
-                if(!_island.visited) {
+    bool unvisitedCellExists()
+    {
+        foreach (Island[] _islandContainer in islands)
+        {
+            foreach (Island _island in _islandContainer)
+            {
+                if (!_island.visited)
+                {
                     return true;
                 }
             }
@@ -419,9 +322,10 @@ public class MapSetup : NetworkBehaviour
             {
                 //    Choose randomly one of the unvisited neighbours
                 ArrayList possibleNeighbors = currentIsland.getUnvisitedNeighbors();
-                if (possibleNeighbors != null) {
+                if (possibleNeighbors != null)
+                {
                     object[] shuffleArray = possibleNeighbors.ToArray();
-                    int rand = Random.Range(0, currentIsland.neighbors.Count);
+                    int rand = UnityEngine.Random.Range(0, currentIsland.neighbors.Count);
                     Island _randomlyChoosenNeighbor = (Island)shuffleArray[rand];
                     Debug.Log("neighbor found: x" + _randomlyChoosenNeighbor.x + ",y" + _randomlyChoosenNeighbor.y);
                     currentIsland.neighbors = new ArrayList(); // reset neighbors
@@ -435,13 +339,13 @@ public class MapSetup : NetworkBehaviour
                     currentIsland = _randomlyChoosenNeighbor;
                     currentIsland.visited = true;
                 }
-            }                
+            }
             //Else if stack is not empty
             else if (stack.Count > 0)
             {
                 Debug.Log("stack size before pop: " + stack.Count);
                 //Pop a cell from the stack and make it the current cell
-                currentIsland = (Island) stack[0];
+                currentIsland = (Island)stack[0];
                 stack.RemoveAt(0);
                 Debug.Log("stack size after pop: " + stack.Count);
             }
@@ -455,203 +359,71 @@ public class MapSetup : NetworkBehaviour
         if (neighbor.y - 1 == _currentIsland.y && _currentIsland.x == neighbor.x)
         {
             _currentIsland.setTopBridge(true);
-=======
-    void assignLayer(Island island)
-    {
-        switch (stepsDone)
-        {
-            case 0:
-                island.layer = MatrixLayer.A;
-                break;
-            case 1:
-                island.layer = MatrixLayer.B;
-                break;
-            case 2:
-                island.layer = MatrixLayer.C;
-                break;
-            case 3:
-                island.layer = MatrixLayer.D;
-                break;
-            case 4:
-                island.layer = MatrixLayer.E;
-                break;
-            case 5:
-                island.layer = MatrixLayer.F;
-                break;
-            case 6:
-                island.layer = MatrixLayer.G;
-                break;
-            case 7:
-                island.layer = MatrixLayer.H;
-                break;
-        }
-    }
-
-    // TODO: implement recursive backtracker instead of DFS
-    void recursiveDFS(Island _island)
-    {
-        currentIsland = _island;
-
-        if (currentIsland.visited)
-        {
-            return;
-        }
-        else
-        {
-            // mark the current island as visited
-            currentIsland.visited = true;
-        }
-
-        // get a list of the current islands neighbors
-        findUnvisitedIslandNeighbors(currentIsland);
-
-        object[] shuffledArray = currentIsland.neighbors.ToArray();
-        for (int i = 0; i < currentIsland.neighbors.Count; i++)
-        {
-            int rand = Random.Range(0, currentIsland.neighbors.Count);
-            object temp = shuffledArray[rand];
-            shuffledArray[rand] = shuffledArray[i];
-            shuffledArray[i] = temp;
-        }
-
-        // assign layer before recursive call 
-        foreach (Island _unvisitedNeighbor in shuffledArray)
-        {
-            assignLayer(_unvisitedNeighbor); // assign height layer
-            stepsDone++;
-        }
-
-
-        // foreach neighbor
-        foreach (Island _unvisitedNeighbor in shuffledArray)
-        {
-            assignLayer(_unvisitedNeighbor); // assign height layer
-            createBridgeBetween(currentIsland, _unvisitedNeighbor);
-            recursiveDFS(_unvisitedNeighbor);
-        }
-
-    }
-
-    void createBridgeBetween(Island currentIsland, Island neighbor)
-    {
-        // We create the bridge only on one Island, because we would render it twice this way
-        // neighbor on top of currentIsland
-        if (neighbor.y - 1 == currentIsland.y && currentIsland.x == neighbor.x)
-        {
-            currentIsland.setTopBridge(true);
->>>>>>> master
             neighbor.setBottomBridge(true);
         }
 
         // neighbor on the right of currentIsland
-<<<<<<< HEAD
         if (neighbor.x - 1 == _currentIsland.x && _currentIsland.y == neighbor.y)
         {
             _currentIsland.setRightBridge(true);
-=======
-        if (neighbor.x - 1 == currentIsland.x && currentIsland.y == neighbor.y)
-        {
-            currentIsland.setRightBridge(true);
->>>>>>> master
+
             neighbor.setLeftBridge(true);
         }
 
         // neighbor is on the bottom of currentIsland
-<<<<<<< HEAD
         if (neighbor.y + 1 == _currentIsland.y && _currentIsland.x == neighbor.x)
         {
             _currentIsland.setBottomBridge(true);
-=======
-        if (neighbor.y + 1 == currentIsland.y && currentIsland.x == neighbor.x)
-        {
-            currentIsland.setBottomBridge(true);
->>>>>>> master
+
             neighbor.setTopBridge(true);
         }
 
         // neighbor is on the left of currentIsland
-<<<<<<< HEAD
         if (neighbor.x + 1 == _currentIsland.x && _currentIsland.y == neighbor.y)
         {
             _currentIsland.setLeftBridge(true);
-=======
-        if (neighbor.x + 1 == currentIsland.x && currentIsland.y == neighbor.y)
-        {
-            currentIsland.setLeftBridge(true);
->>>>>>> master
+
             neighbor.setRightBridge(true);
         }
     }
 
-<<<<<<< HEAD
     bool findUnvisitedIslandNeighbors(Island island)
-=======
-    void findUnvisitedIslandNeighbors(Island island)
->>>>>>> master
     {
         // top
         if (island.y + 1 < mapSize)
         {
-<<<<<<< HEAD
             if (!islands[island.x][island.y + 1].visited && !island.neighbors.Contains(islands[island.x][island.y + 1]))
             {
                 island.neighbors.Add(islands[island.x][island.y + 1]);
             }
-=======
-            if (!islands[island.x][island.y + 1].visited)
-            {
 
-            }
-            island.neighbors.Add(islands[island.x][island.y + 1]);
->>>>>>> master
         }
         // right
         if (island.x + 1 < mapSize)
         {
-<<<<<<< HEAD
             if (!islands[island.x + 1][island.y].visited && !island.neighbors.Contains(islands[island.x + 1][island.y]))
             {
                 island.neighbors.Add(islands[island.x + 1][island.y]);
             }
-=======
-            if (!islands[island.x + 1][island.y].visited)
-            {
 
-            }
-            island.neighbors.Add(islands[island.x + 1][island.y]);
->>>>>>> master
         }
         // bottom
         if (island.y - 1 >= 0)
         {
-<<<<<<< HEAD
             if (!islands[island.x][island.y - 1].visited && !island.neighbors.Contains(islands[island.x][island.y - 1]))
             {
                 island.neighbors.Add(islands[island.x][island.y - 1]);
             }
-=======
-            if (!islands[island.x][island.y - 1].visited)
-            {
 
-            }
-            island.neighbors.Add(islands[island.x][island.y - 1]);
->>>>>>> master
         }
         // left
         if (island.x - 1 >= 0)
         {
-<<<<<<< HEAD
             if (!islands[island.x - 1][island.y].visited && !island.neighbors.Contains(islands[island.x - 1][island.y]))
             {
                 island.neighbors.Add(islands[island.x - 1][island.y]);
             }
-=======
-            if (!islands[island.x - 1][island.y].visited)
-            {
 
-            }
-            island.neighbors.Add(islands[island.x - 1][island.y]);
->>>>>>> master
         }
 
         Debug.Log("Island x,y: " + island.x + "," + island.y + " | has neighbors: ");
@@ -659,20 +431,15 @@ public class MapSetup : NetworkBehaviour
         {
             Debug.Log("Neighbor #" + i + ": " + ((Island)island.neighbors[i]).x + " , " + ((Island)island.neighbors[i]).y);
         }
-<<<<<<< HEAD
 
         // neighbor found
-        if(island.neighbors.Count > 0) {
+        if (island.neighbors.Count > 0)
+        {
             return true;
         }
 
         // no neigbor found
         return false;
     }
-=======
-    }
 
-
-
->>>>>>> master
 }

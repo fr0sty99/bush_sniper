@@ -236,7 +236,7 @@
 /Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0/Temp/bin/Debug/UnityEngine.StandardEvents.dll.mdb
 /Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
 /Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0/Temp/bin/Debug/Unity.IvyParser.dll.mdb
+/Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0/obj/Debug/Assembly-CSharp.csprojResolveAssemblyReference.cache
 /Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0/obj/Debug/Assembly-CSharp.csproj.CoreCompileInputs.cache
 /Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0/obj/Debug/Assembly-CSharp.dll
 /Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0/obj/Debug/Assembly-CSharp.pdb
-/Users/Joris/Data/DEVEL/github_unity_bush_sniper/Bush_Sniper_V1.0/obj/Debug/Assembly-CSharp.csprojResolveAssemblyReference.cache
